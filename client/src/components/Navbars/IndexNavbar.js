@@ -113,6 +113,10 @@ function IndexNavbar() {
                     <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
                     로그인
                   </DropdownItem>
+                  <DropdownItem href="/signup-page" target="">
+                    <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
+                    회원가입
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
