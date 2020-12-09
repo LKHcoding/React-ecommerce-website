@@ -16,13 +16,45 @@ import {
   Container,
   Row,
 } from "reactstrap";
+import { registerUser } from "../../_action/user_action";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 // core components
 
-function SignUp() {
-  const [firstFocus, setFirstFocus] = React.useState(false);
-  const [lastFocus, setLastFocus] = React.useState(false);
+function SignUp(props) {
+  const [nameFocus, setNameFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
+  const [passwordFocus, setPasswordFocus] = React.useState(false);
+  const [confimpasswordFocus, setconfrimPassFocus] = React.useState(false);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmpassword, setConfirmPassword] = React.useState("");
+
+  const dispatch = useDispatch();
+
+  const Signup = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmpassword) {
+      return alert("비밀번호를 다시 확인해주세요.");
+    }
+
+    let body = {
+      name: name,
+      email: email,
+      password: password,
+      confirmpassword: confirmpassword,
+    };
+    dispatch(registerUser(body)).then((response) => {
+      if (response.payload.success) {
+        props.history.push("/index");
+      } else {
+        alert("Error");
+      }
+    });
+  };
   return (
     <>
       <div
@@ -73,7 +105,7 @@ function SignUp() {
                 <CardBody>
                   <InputGroup
                     className={
-                      "no-border" + (firstFocus ? " input-group-focus" : "")
+                      "no-border" + (nameFocus ? " input-group-focus" : "")
                     }
                   >
                     <InputGroupAddon addonType="prepend">
@@ -82,27 +114,11 @@ function SignUp() {
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      placeholder="First Name..."
+                      placeholder="User Name..."
                       type="text"
-                      onFocus={() => setFirstFocus(true)}
-                      onBlur={() => setFirstFocus(false)}
-                    ></Input>
-                  </InputGroup>
-                  <InputGroup
-                    className={
-                      "no-border" + (lastFocus ? " input-group-focus" : "")
-                    }
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="now-ui-icons text_caps-small"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Last Name..."
-                      type="text"
-                      onFocus={() => setLastFocus(true)}
-                      onBlur={() => setLastFocus(false)}
+                      onFocus={() => setNameFocus(true)}
+                      onBlur={() => setNameFocus(false)}
+                      onChange={(e) => setName(e.target.value)}
                     ></Input>
                   </InputGroup>
                   <InputGroup
@@ -120,6 +136,44 @@ function SignUp() {
                       type="text"
                       onFocus={() => setEmailFocus(true)}
                       onBlur={() => setEmailFocus(false)}
+                      onChange={(e) => setEmail(e.target.value)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                    className={
+                      "no-border" + (passwordFocus ? " input-group-focus" : "")
+                    }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons ui-1_lock-circle-open"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="Password..."
+                      type="password"
+                      onFocus={() => setPasswordFocus(true)}
+                      onBlur={() => setPasswordFocus(false)}
+                      onChange={(e) => setPassword(e.target.value)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                    className={
+                      "no-border" +
+                      (confimpasswordFocus ? " input-group-focus" : "")
+                    }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons ui-1_lock-circle-open"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="Confirm Password..."
+                      type="password"
+                      onFocus={() => setconfrimPassFocus(true)}
+                      onBlur={() => setconfrimPassFocus(false)}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     ></Input>
                   </InputGroup>
                 </CardBody>
@@ -128,7 +182,7 @@ function SignUp() {
                     className="btn-neutral btn-round"
                     color="info"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={Signup}
                     size="lg"
                   >
                     Get Started
@@ -155,4 +209,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default withRouter(SignUp);
