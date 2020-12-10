@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import DaumPostcode from "components/Postcode/PostCode";
 // reactstrap components
 import {
   Button,
@@ -15,6 +16,8 @@ import {
   InputGroup,
   Container,
   Row,
+  Modal,
+  ModalBody,
 } from "reactstrap";
 import { registerUser } from "../../_action/user_action";
 import { useDispatch } from "react-redux";
@@ -23,17 +26,31 @@ import { withRouter } from "react-router-dom";
 // core components
 
 function SignUp(props) {
+  const [modal1, setModal1] = React.useState(false);
   const [nameFocus, setNameFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
   const [passwordFocus, setPasswordFocus] = React.useState(false);
   const [confimpasswordFocus, setconfrimPassFocus] = React.useState(false);
+  const [addressdataFocus, setAddressDataFocus] = React.useState(false);
+  const [extraAddressFocus, setExtraAddressFocus] = React.useState(false);
+
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmpassword, setConfirmPassword] = React.useState("");
+  const [addressdata, setAddressData] = React.useState("");
+  const [address, setaddress] = React.useState("");
+  const [extraAddress, setExtraAddress] = React.useState("");
+  const [zonecode, setZoneCode] = React.useState("");
 
   const dispatch = useDispatch();
 
+  const fullAddressFn = (addressdata, zonecode) => {
+    setaddress(addressdata);
+    setAddressData(addressdata + " (" + zonecode + ")");
+    setZoneCode(zonecode);
+    setModal1(false);
+  };
   const Signup = (e) => {
     e.preventDefault();
 
@@ -46,14 +63,22 @@ function SignUp(props) {
       email: email,
       password: password,
       confirmpassword: confirmpassword,
+      address: address,
+      extraaddress: extraAddress,
+      zonecode: zonecode,
     };
     dispatch(registerUser(body)).then((response) => {
       if (response.payload.success) {
         props.history.push("/index");
       } else {
-        alert("Error");
+        alert("양식을 모두 작성해주세요.");
       }
     });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 추가 코드를 작성하여 DB를 제어하거나 state를 변경할 수 있습니다!
   };
   return (
     <>
@@ -69,7 +94,12 @@ function SignUp(props) {
         <Container>
           <Row>
             <Card className="card-signup" data-background-color="blue">
-              <Form action="" className="form" method="">
+              <Form
+                action=""
+                className="form"
+                method=""
+                onSubmit={handleSubmit}
+              >
                 <CardHeader className="text-center">
                   <CardTitle className="title-up" tag="h3">
                     Sign Up
@@ -133,7 +163,8 @@ function SignUp(props) {
                     </InputGroupAddon>
                     <Input
                       placeholder="Email..."
-                      type="text"
+                      type="email"
+                      name="email"
                       onFocus={() => setEmailFocus(true)}
                       onBlur={() => setEmailFocus(false)}
                       onChange={(e) => setEmail(e.target.value)}
@@ -176,6 +207,68 @@ function SignUp(props) {
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     ></Input>
                   </InputGroup>
+                  <InputGroup
+                    className={
+                      "no-border" +
+                      (addressdataFocus ? " input-group-focus" : "")
+                    }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons objects_globe"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="주소"
+                      type="text"
+                      onFocus={() => setAddressDataFocus(true)}
+                      onBlur={() => setAddressDataFocus(false)}
+                      value={addressdata}
+                    ></Input>
+                  </InputGroup>
+
+                  <InputGroup
+                    className={
+                      "no-border" +
+                      (extraAddressFocus ? " input-group-focus" : "")
+                    }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons objects_globe"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="상세주소"
+                      type="text"
+                      onFocus={() => setExtraAddressFocus(true)}
+                      onBlur={() => setExtraAddressFocus(false)}
+                      onChange={(e) => setExtraAddress(e.target.value)}
+                    ></Input>
+                  </InputGroup>
+
+                  <Button
+                    color="info"
+                    className="mr-1"
+                    onClick={() => setModal1(true)}
+                  >
+                    주소검색
+                  </Button>
+                  <Modal isOpen={modal1} toggle={() => setModal1(false)}>
+                    <div className="modal-header justify-content-center">
+                      <button
+                        className="close"
+                        type="button"
+                        onClick={() => setModal1(false)}
+                      >
+                        <i className="now-ui-icons ui-1_simple-remove"></i>
+                      </button>
+                      <h4 className="title title-up">Modal title</h4>
+                    </div>
+                    <ModalBody>
+                      <DaumPostcode setfullAddressFn={fullAddressFn} />
+                    </ModalBody>
+                  </Modal>
                 </CardBody>
                 <CardFooter className="text-center">
                   <Button

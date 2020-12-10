@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema({
     type: String,
     trim: true,
     unique: 1,
+    notnull: true,
+  },
+  address: {
+    type: String,
   },
   password: {
     type: String,
@@ -23,6 +27,15 @@ const userSchema = mongoose.Schema({
     default: 0,
   },
   image: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  extraaddress: {
+    type: String,
+  },
+  zonecode: {
     type: String,
   },
   token: {
