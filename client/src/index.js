@@ -37,6 +37,7 @@ import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import SignUpPage from "../src/views/index-sections/SignUp";
+import Auth from "./hoc/auth";
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
@@ -53,7 +54,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Switch>
-          <Route path="/index" render={(props) => <Index {...props} />} />
+          <Route exact path="/index" component={Auth(Index, null)} />
           <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}

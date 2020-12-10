@@ -19,7 +19,7 @@ import {
   Modal,
   ModalBody,
 } from "reactstrap";
-import { registerUser } from "../../_action/user_action";
+import { registerUser } from "../../_actions/user_action";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 
