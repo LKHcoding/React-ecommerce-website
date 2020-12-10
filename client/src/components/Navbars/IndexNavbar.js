@@ -16,8 +16,13 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
+import { useDispatch } from "react-redux";
+import { logout } from "../../_action/user_action";
+import { withRouter } from "react-router-dom";
+import axios from "axios";
 
-function IndexNavbar() {
+function IndexNavbar(props) {
+  const dispatch = useDispatch();
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {
@@ -39,6 +44,15 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+  const logoutuser = () => {
+    axios.get("http://localhost:2000/api/users/logout").then((response) => {
+      if (response.data.success) {
+        props.history.push("/index");
+      } else {
+        alert("로그아웃 중 문제가 발생했습니다.");
+      }
+    });
+  };
   return (
     <>
       {collapseOpen ? (
@@ -117,6 +131,9 @@ function IndexNavbar() {
                     <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
                     회원가입
                   </DropdownItem>
+                  <DropdownItem href="" target="">
+                    <Button onClick={logoutuser}>로그아웃</Button>
+                  </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
@@ -181,4 +198,4 @@ function IndexNavbar() {
   );
 }
 
-export default IndexNavbar;
+export default withRouter(IndexNavbar);

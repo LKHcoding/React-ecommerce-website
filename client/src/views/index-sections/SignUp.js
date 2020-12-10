@@ -52,8 +52,6 @@ function SignUp(props) {
     setModal1(false);
   };
   const Signup = (e) => {
-    e.preventDefault();
-
     if (password !== confirmpassword) {
       return alert("비밀번호를 다시 확인해주세요.");
     }
@@ -77,7 +75,7 @@ function SignUp(props) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     // 추가 코드를 작성하여 DB를 제어하거나 state를 변경할 수 있습니다!
   };
   return (
@@ -251,6 +249,7 @@ function SignUp(props) {
                     color="info"
                     className="mr-1"
                     onClick={() => setModal1(true)}
+                    type="button"
                   >
                     주소검색
                   </Button>

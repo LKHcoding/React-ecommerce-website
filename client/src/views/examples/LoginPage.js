@@ -19,10 +19,39 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
+import { loginUser } from "../../_action/user_action";
+import { useDispatch } from "react-redux";
 
-function LoginPage() {
+function LoginPage(props) {
+  const dispatch = useDispatch();
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const onemailHandeler = (e) => {
+    setEmail(e.currentTarget.value);
+  };
+
+  const onpasswordHandeler = (e) => {
+    setPassword(e.currentTarget.value);
+  };
+
+  const onSubmitHandler = (e) => {
+    let body = {
+      email: email,
+      password: password,
+    };
+    dispatch(loginUser(body)).then((response) => {
+      if (response.payload.loginSuccess) {
+        props.history.push("/");
+      } else {
+        alert("Error");
+      }
+    });
+    props.history.push("/");
+  };
 
   React.useEffect(() => {
     document.body.classList.add("login-page");
@@ -75,6 +104,7 @@ function LoginPage() {
                         type="email"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
+                        onChange={onemailHandeler}
                       ></Input>
                     </InputGroup>
                     <InputGroup
@@ -85,14 +115,15 @@ function LoginPage() {
                     >
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="now-ui-icons text_caps-small"></i>
+                          <i className="now-ui-icons ui-1_lock-circle-open"></i>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
                         placeholder="Password"
-                        type="text"
+                        type="password"
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
+                        onChange={onpasswordHandeler}
                       ></Input>
                     </InputGroup>
                   </CardBody>
@@ -104,6 +135,7 @@ function LoginPage() {
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
                       size="lg"
+                      onFocus={onSubmitHandler}
                     >
                       로그인
                     </Button>
