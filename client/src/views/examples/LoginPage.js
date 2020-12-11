@@ -19,7 +19,7 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
-import { loginUser } from "../../_action/user_action";
+import { loginUser } from "../../_actions/user_action";
 import { useDispatch } from "react-redux";
 
 function LoginPage(props) {
@@ -39,6 +39,8 @@ function LoginPage(props) {
   };
 
   const onSubmitHandler = (e) => {
+    e.preventDefault();
+
     let body = {
       email: email,
       password: password,
@@ -50,7 +52,6 @@ function LoginPage(props) {
         alert("Error");
       }
     });
-    props.history.push("/");
   };
 
   React.useEffect(() => {

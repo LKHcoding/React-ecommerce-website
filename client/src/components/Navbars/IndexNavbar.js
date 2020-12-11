@@ -17,7 +17,6 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { logout } from "../../_action/user_action";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
@@ -131,8 +130,9 @@ function IndexNavbar(props) {
                     <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
                     회원가입
                   </DropdownItem>
-                  <DropdownItem href="" target="">
-                    <Button onClick={logoutuser}>로그아웃</Button>
+                  <DropdownItem href="" target="" onClick={logoutuser}>
+                    <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
+                    로그아웃
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
