@@ -44,11 +44,11 @@ function IndexNavbar(props) {
     };
   });
   const logoutuser = () => {
-    axios.get("http://localhost:2000/api/users/logout").then((response) => {
+    axios.get("/api/users/logout").then((response) => {
       if (response.data.success) {
-        props.history.push("/index");
+        props.history.push("/login");
       } else {
-        alert("로그아웃 중 문제가 발생했습니다.");
+        alert("로그아웃 실패");
       }
     });
   };

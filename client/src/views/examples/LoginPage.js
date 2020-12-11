@@ -21,6 +21,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import { loginUser } from "../../_actions/user_action";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router";
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -174,4 +175,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

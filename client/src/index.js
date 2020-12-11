@@ -67,14 +67,9 @@ ReactDOM.render(
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}
           />
-          <Route
-            path="/login-page"
-            render={(props) => <LoginPage {...props} />}
-          />
-          <Route
-            path="/signup-page"
-            render={(props) => <SignUpPage {...props} />}
-          />
+          <Route path="/login-page" component={Auth(LoginPage, false)} />
+
+          <Route path="/signup-page" component={Auth(SignUpPage, false)} />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
         </Switch>
