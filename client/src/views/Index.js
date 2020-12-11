@@ -50,10 +50,10 @@ function Index() {
           <Pagination />
           <Notifications />
           <Typography />
-          <Javascript />
+          <Javascript />*/}
           <Carousel />
           <NucleoIcons />
-          <CompleteExamples />
+          {/*<CompleteExamples />
           <SignUp />
           <Examples />*/}
           <Download />
