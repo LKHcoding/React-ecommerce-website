@@ -69,7 +69,7 @@ app.post("/api/users/signin", (req, res) => {
 app.get("/api/users/auth", auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
-    isAdmin: req.user.role == 0 ? false : true,
+    isAdmin: req.user.role == 0 ? true : false,
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
