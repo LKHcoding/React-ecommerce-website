@@ -1,0 +1,29 @@
+.section-tabs{
+    background:white;
+}
+.card-header{ /*첫번째 TabList의 카드 배경*/
+    background-color:white;
+    border-bottom: 1px solid white;
+}
+.nav-tabs > .nav-item > .nav-link { /*첫번째 TabList의 텍스트 */
+    color: black;
+    font-weight: bold;
+}
+
+.nav-tabs > .nav-item > .nav-link.active{ /*첫번째 TabList의 Action효과 */
+    background-color: #2ca8ff;
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-family: SamsungOneKorean, 돋움, sans-serif;
+}
+
+.tab-detail1 {
+    flex-direction: column;
+    width: 25%;
+}
+
+.tab-detail1 > .watch1 > .fig-img{
+    flex-direction: column;
+    width: 25%;
+}

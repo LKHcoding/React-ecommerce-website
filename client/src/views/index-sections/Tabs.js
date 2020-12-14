@@ -1,4 +1,5 @@
 import React from "react";
+import "assets/css/Tabs.css"
 
 // reactstrap components
 import {
@@ -15,34 +16,40 @@ import {
   Col,
 } from "reactstrap";
 
+
+import watch1 from "../../assets/img/watch2.png";
+import buz1 from "../../assets/img/buz1.png";
 // core components
 
+const items = [
+  {
+    src: require("assets/img/Smart-home.png"),
+    text: "닷컴 Pick 가전으로 완성하는 세상 편한 생활"
+  },]
+
+  
 function Tabs() {
   const [iconPills, setIconPills] = React.useState("1");
   const [pills, setPills] = React.useState("1");
   return (
     <>
       <div className="section section-tabs">
-        <Container>
-          <Row>
-            <Col className="ml-auto mr-auto" md="10" xl="6">
-              <p className="category">Tabs with Icons on Card</p>
-              <Card>
-                <CardHeader>
+
+               <CardHeader> {/* 1. TabList 텍스트 */}
                   <Nav className="justify-content-center" role="tablist" tabs>
                     <NavItem>
                       <NavLink
-                        className={iconPills === "1" ? "active" : ""}
+                        className={(iconPills === "1" ? "active" : "" )+" "+"tttt"}
                         href="#pablo"
                         onClick={(e) => {
                           e.preventDefault();
                           setIconPills("1");
                         }}
                       >
-                        <i className="now-ui-icons objects_umbrella-13"></i>
-                        Home
+                        새로운 갤럭시
                       </NavLink>
                     </NavItem>
+
                     <NavItem>
                       <NavLink
                         className={iconPills === "2" ? "active" : ""}
@@ -52,10 +59,10 @@ function Tabs() {
                           setIconPills("2");
                         }}
                       >
-                        <i className="now-ui-icons shopping_cart-simple"></i>
-                        Profile
+                        특별한 혜택
                       </NavLink>
                     </NavItem>
+
                     <NavItem>
                       <NavLink
                         className={iconPills === "3" ? "active" : ""}
@@ -65,10 +72,11 @@ function Tabs() {
                           setIconPills("3");
                         }}
                       >
-                        <i className="now-ui-icons shopping_shop"></i>
-                        Messages
+                        우리집 맑음샵
                       </NavLink>
                     </NavItem>
+
+
                     <NavItem>
                       <NavLink
                         className={iconPills === "4" ? "active" : ""}
@@ -78,181 +86,130 @@ function Tabs() {
                           setIconPills("4");
                         }}
                       >
-                        <i className="now-ui-icons ui-2_settings-90"></i>
-                        Settings
+                        대한민국 혁신대상 수상
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem>
+                      <NavLink
+                        className={iconPills === "5" ? "active" : ""}
+                        href="#pablo"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIconPills("5");
+                        }}
+                      >
+                        추천제품
                       </NavLink>
                     </NavItem>
                   </Nav>
                 </CardHeader>
-                <CardBody>
+
+
+
+        <Container style={{border: '1px solid red'}}> {/* 2.TabList 사진 및 디테일 */}
+          
+              <Card>
+        
+               
+
+                  
                   <TabContent
                     className="text-center"
                     activeTab={"iconPills" + iconPills}
                   >
+                
+                
                     <TabPane tabId="iconPills1">
-                      <p>
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
+
+                    <div className="tab-detail1">
+                      <div className="watch1">
+                        <div className="fig-img">
+                        <img src={watch1} />
+                        </div>
+                      
+                        <div className="fig-img">
+                        <img src={buz1} />
+                        </div>
+                      </div>
+                      </div>
                     </TabPane>
+                   
+
+                        
+                        
+              
                     <TabPane tabId="iconPills2">
-                      <p>
-                        I will be the leader of a company that ends up being
-                        worth billions of dollars, because I got the answers. I
-                        understand culture. I am the nucleus. I think that’s a
-                        responsibility that I have, to push possibilities, to
-                        show people, this is the level that things could be at.
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at.
-                      </p>
+                     
+                    <div className="tab-detail2" style={{display: "flex"}}>
+                    <div className="col4">
+                      detail4
+                      </div>
+
+                      <div className="col4">
+                      detail5
+                      </div>
+
+                      <div className="col4">
+                      detail6
+                      </div>
+                      </div>
+                      
                     </TabPane>
+                   
+
+
                     <TabPane tabId="iconPills3">
-                      <p>
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
+                    <div className="tab-detail3" style={{display: "flex"}}>
+                    <div className="col4">
+                    detail7
+                      </div>
+
+                      <div className="col4">
+                      detail8
+                      </div>
+
+                      <div className="col4">
+                      detail9
+                      </div>
+                      </div>
                     </TabPane>
                     <TabPane tabId="iconPills4">
-                      <p>
-                        "I will be the leader of a company that ends up being
-                        worth billions of dollars, because I got the answers. I
-                        understand culture. I am the nucleus. I think that’s a
-                        responsibility that I have, to push possibilities, to
-                        show people, this is the level that things could be at."
-                      </p>
+                    <div className="tab-detail4" style={{display: "flex"}}>
+                    <div className="col4">
+                    detail10
+                      </div>
+
+                      <div className="col4">
+                      detail11
+                      </div>
+
+                      <div className="col4">
+                      detail12
+                      </div>
+                      </div>
+                    </TabPane>
+
+                    <TabPane tabId="iconPills5">
+                    <div className="tab-detail5" style={{display: "flex"}}>
+                    <div className="col4">
+                    detail13
+                      </div>
+
+                      <div className="col4">
+                      detail14
+                      </div>
+
+                      <div className="col4">
+                      detail15
+                      </div>
+                      </div>
                     </TabPane>
                   </TabContent>
-                </CardBody>
+                
               </Card>
-            </Col>
-            <Col className="ml-auto mr-auto" md="10" xl="6">
-              <p className="category">Tabs with Background on Card</p>
-              <Card>
-                <CardHeader>
-                  <Nav
-                    className="nav-tabs-neutral justify-content-center"
-                    data-background-color="blue"
-                    role="tablist"
-                    tabs
-                  >
-                    <NavItem>
-                      <NavLink
-                        className={pills === "1" ? "active" : ""}
-                        href="#pablo"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPills("1");
-                        }}
-                      >
-                        Home
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={pills === "2" ? "active" : ""}
-                        href="#pablo"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPills("2");
-                        }}
-                      >
-                        Profile
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={pills === "3" ? "active" : ""}
-                        href="#pablo"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPills("3");
-                        }}
-                      >
-                        Messages
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={pills === "4" ? "active" : ""}
-                        href="#pablo"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setPills("4");
-                        }}
-                      >
-                        Settings
-                      </NavLink>
-                    </NavItem>
-                  </Nav>
-                </CardHeader>
-                <CardBody>
-                  <TabContent
-                    className="text-center"
-                    activeTab={"pills" + pills}
-                  >
-                    <TabPane tabId="pills1">
-                      <p>
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
-                    </TabPane>
-                    <TabPane tabId="pills2">
-                      <p>
-                        I will be the leader of a company that ends up being
-                        worth billions of dollars, because I got the answers. I
-                        understand culture. I am the nucleus. I think that’s a
-                        responsibility that I have, to push possibilities, to
-                        show people, this is the level that things could be at.
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at.
-                      </p>
-                    </TabPane>
-                    <TabPane tabId="pills3">
-                      <p>
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
-                    </TabPane>
-                    <TabPane tabId="pills4">
-                      <p>
-                        "I will be the leader of a company that ends up being
-                        worth billions of dollars, because I got the answers. I
-                        understand culture. I am the nucleus. I think that’s a
-                        responsibility that I have, to push possibilities, to
-                        show people, this is the level that things could be at."
-                      </p>
-                    </TabPane>
-                  </TabContent>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
+            
+    
         </Container>
       </div>
     </>

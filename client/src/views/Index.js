@@ -9,6 +9,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 
+
 // sections for this page
 import Images from "./index-sections/Images.js";
 import BasicElements from "./index-sections/BasicElements.js";
@@ -43,12 +44,11 @@ function Index() {
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
-        <div className="main">
+          <Tabs />
           {/* <Images /> */}
           <BasicElements />
           {/* <Navbars /> */}
-          {/* <Tabs />
-          <Pagination />
+          {/*<Pagination />
           <Notifications />
           <Typography />
           <Javascript />*/}
@@ -58,7 +58,6 @@ function Index() {
           <SignUp />
           <Examples />*/}
           <Download />
-        </div>
         <DarkFooter />
       </div>
     </>
