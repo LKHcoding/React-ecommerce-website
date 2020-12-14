@@ -23,6 +23,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   })
   .then(() => {
     console.log("데이터베이스 연결됨");
@@ -75,6 +76,22 @@ app.get("/api/users/auth", auth, (req, res) => {
     name: req.user.name,
     role: req.user.role,
     image: req.user.image,
+  });
+});
+
+//전체 유저 목록 불러오기
+app.post("/api/users/allUserInfoList", (req, res) => {
+  User.find((err, user) => {
+    // console.log(user);
+    if (!user) {
+      return res.json({
+        유저목록조회: false,
+        message: "유저가 없습니다.",
+      });
+    }
+    return res.status(200).json({
+      userinfo: user,
+    });
   });
 });
 

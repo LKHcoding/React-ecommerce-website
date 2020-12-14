@@ -17,48 +17,30 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { useState } from "react";
 import { auth } from "../../_actions/user_action";
-import { useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 function IndexNavbar(props) {
   const dispatch = useDispatch();
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+  const [navbarColor, setNavbarColor] = React.useState("");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    //최초 렌더링시에 한번만 실행되는곳
+  React.useEffect(() => {
     dispatch(auth()).then((response) => {
-      if (response.payload.isAuth === true) {
-        setIsAdmin(true);
-        console.log("관리자 유저입니다." + response.payload.isAdmin);
-      }
-      if (response.payload.isAdmin === false) {
-        console.log("일반 유저입니다.");
-      }
+      console.log(response.payload.isAdmin);
       if (response.payload.isAuth === true) {
         setIsAuth(true);
       }
     });
-  }, []);
-
-  React.useEffect(() => {
-    //렌더링 될때마다 실행 되는 곳.(네비바 색깔)
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 399 ||
-        document.body.scrollTop > 399
-      ) {
-        setNavbarColor("");
-      } else if (
         document.documentElement.scrollTop < 400 ||
         document.body.scrollTop < 400
       ) {
-        setNavbarColor("navbar-transparent");
+        setNavbarColor("");
+        // setNavbarColor("navbar-transparent");
       }
     };
     window.addEventListener("scroll", updateNavbarColor);
@@ -66,12 +48,9 @@ function IndexNavbar(props) {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
-
   const logoutuser = () => {
     axios.get("/api/users/logout").then((response) => {
       if (response.data.success) {
-        console.log("로그아웃 성공");
-        alert("로그아웃 되었습니다.");
         props.history.push("/login");
       } else {
         alert("로그아웃 실패");
@@ -96,7 +75,7 @@ function IndexNavbar(props) {
               React E-commerce website
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
-              Using React.js, Node.js, Express, MongoDB
+              Designed by LKHcoding. Coded by LKH Team
             </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
@@ -148,7 +127,6 @@ function IndexNavbar(props) {
                     <i className="now-ui-icons business_chart-pie-36 mr-1"></i>
                     All components
                   </DropdownItem> */}
-
                   {isAuth === true ? (
                     <>
                       <DropdownItem href="" target="" onClick={logoutuser}>
@@ -175,8 +153,7 @@ function IndexNavbar(props) {
                   )}
                 </DropdownMenu>
               </UncontrolledDropdown>
-
-              {/* 관리자 권한에 의해 버튼을 보여줄것인지 여부 */}
+              {/* 관리자 권한에 의해 버튼을 보여줄것인지 여부
               {isAdmin === true ? (
                 <NavItem>
                   <Button
@@ -193,8 +170,7 @@ function IndexNavbar(props) {
                     관리자 페이지
                   </UncontrolledTooltip>
                 </NavItem>
-              ) : null}
-
+              ) : null} */}
               <NavItem>
                 <NavLink
                   href="https://twitter.com/CreativeTim?ref=creativetim"

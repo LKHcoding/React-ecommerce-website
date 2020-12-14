@@ -1,0 +1,22 @@
+.sidemenu {
+  display: inline-block;
+  width: 15%;
+  font-size: 0.7rem;
+  position: sticky;
+  top: 10%;
+  margin-top: 10%;
+}
+
+.px-6 {
+  padding: 1rem;
+}
+.py-3 {
+  padding: 1rem;
+}
+.text-sm {
+  font-size: 0.5rem;
+}
+
+.px-16 {
+  padding: 1rem;
+}
