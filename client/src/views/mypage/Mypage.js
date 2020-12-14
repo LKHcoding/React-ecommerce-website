@@ -11,7 +11,7 @@ function Mypage() {
       <IndexNavbar />
       <SideMenu />
       <Switch>
-        <Route exact path="/mypage" component={UserInfo} />
+        <Route exact path="/mypage/userinfo" component={UserInfo} />
         <Route exact path="/mypage/address" component={Order} />
       </Switch>
     </>
