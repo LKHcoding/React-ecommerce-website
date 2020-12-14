@@ -17,14 +17,25 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { auth } from "../../_actions/user_action";
+
 import axios from "axios";
 
 function IndexNavbar(props) {
   const dispatch = useDispatch();
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   React.useEffect(() => {
+    dispatch(auth()).then((response) => {
+      console.log(response.payload.isAdmin);
+      if (response.payload.isAdmin === true) {
+        setIsAdmin(true);
+      }
+    });
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 399 ||
@@ -118,10 +129,10 @@ function IndexNavbar(props) {
                   <p>Components</p>
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem to="/index" tag={Link}>
+                  {/* <DropdownItem to="/index" tag={Link}>
                     <i className="now-ui-icons business_chart-pie-36 mr-1"></i>
                     All components
-                  </DropdownItem>
+                  </DropdownItem> */}
                   <DropdownItem href="/login-page" target="">
                     <i className="now-ui-icons design_bullet-list-67 mr-1"></i>
                     로그인
@@ -136,21 +147,26 @@ function IndexNavbar(props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                <Button
-                  className="nav-link btn-neutral"
-                  color="info"
-                  href="#pablo"
-                  id="upgrade-to-pro"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <i className="now-ui-icons arrows-1_share-66 mr-1"></i>
-                  <p>Upgrade to PRO</p>
-                </Button>
-                <UncontrolledTooltip target="#upgrade-to-pro">
-                  Cooming soon!
-                </UncontrolledTooltip>
-              </NavItem>
+
+              {/* 관리자 권한에 의해 버튼을 보여줄것인지 여부 */}
+              {isAdmin === true ? (
+                <NavItem>
+                  <Button
+                    className="nav-link btn-neutral"
+                    color="info"
+                    href="/admin"
+                    id="upgrade-to-pro"
+                    // onClick={(e) => e.preventDefault()}
+                  >
+                    <i className="now-ui-icons arrows-1_share-66 mr-1"></i>
+                    <p>Admin-page</p>
+                  </Button>
+                  <UncontrolledTooltip target="#upgrade-to-pro">
+                    관리자 페이지
+                  </UncontrolledTooltip>
+                </NavItem>
+              ) : null}
+
               <NavItem>
                 <NavLink
                   href="https://twitter.com/CreativeTim?ref=creativetim"

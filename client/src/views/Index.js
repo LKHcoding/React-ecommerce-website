@@ -9,6 +9,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 
+
 // sections for this page
 import Images from "./index-sections/Images.js";
 import BasicElements from "./index-sections/BasicElements.js";
@@ -25,7 +26,8 @@ import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 
-function Index() {
+function Index(props) {
+  console.log(props.userInfo);
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -42,22 +44,20 @@ function Index() {
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
-        <div className="main">
+          <Tabs />
           {/* <Images /> */}
           <BasicElements />
           {/* <Navbars /> */}
-          {/* <Tabs />
-          <Pagination />
+          {/*<Pagination />
           <Notifications />
           <Typography />
-          <Javascript />
+          <Javascript />*/}
           <Carousel />
           <NucleoIcons />
-          <CompleteExamples />
+          {/*<CompleteExamples />
           <SignUp />
           <Examples />*/}
           <Download />
-        </div>
         <DarkFooter />
       </div>
     </>
