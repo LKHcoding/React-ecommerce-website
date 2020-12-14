@@ -1,4 +1,4 @@
-.carousel-caption{
+.IndexHeaderText{
     display: inline-block;
     width:600px;
     height: 400px;
@@ -7,7 +7,7 @@
     border:solid 1px blue;
 }
 
-h2{ /*큰 텍스트*/
+.IndexHeaderText > h2{ /*큰 텍스트*/
     border: 1px solid red;
     position: absolute;
     top: 0px;
@@ -17,7 +17,7 @@ h2{ /*큰 텍스트*/
 
 }
 
-h4{ /*표현 텍스트*/
+.IndexHeaderText > h4{ /*표현 텍스트*/
     position: relative;
     top:50px;
     left:0px;
@@ -25,7 +25,7 @@ h4{ /*표현 텍스트*/
     font-size:16px;
 }
 
-h3{ /*언더라인 텍스트*/
+.IndexHeaderText > h3{ /*언더라인 텍스트*/
     position: relative;
     top:55px;
     left:0px;
@@ -34,19 +34,18 @@ h3{ /*언더라인 텍스트*/
     font-weight: bold;
     text-decoration: underline;
 }
-
-.btn-round{
-    position: relative;
-    top:10px;
-    left:0px;
-    background-color:white;
-    color:black;
-}
-
-.btn-box{
+.IndexHeaderText > .btn-box{
     position: relative;
     display: flex;
     top:20px;
     left:0px;
     text-align: left;
+}
+
+.IndexHeaderText > .btn-box > .btn-round{
+    position: relative;
+    top:10px;
+    left:0px;
+    background-color:white;
+    color:black;
 }

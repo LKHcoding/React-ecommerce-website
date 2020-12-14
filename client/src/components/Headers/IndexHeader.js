@@ -8,7 +8,6 @@ import { Container } from "reactstrap";
 
 import {
   Button,
-  Row,
   Carousel,
   CarouselItem,
   CarouselIndicators,
@@ -24,10 +23,8 @@ const items = [
     src: require("assets/img/Smart-home.png"),
     altText: "삼성 Smart Home",
     caption: "삼성 Smart Home",
-    text: "닷컴 Pick 가전으로 완성하는 세상 편한 생활",
-    button: "info",
-    style: {border: "1px solid gray"}
-    
+    text: "닷컴 Pick 가전으로 완성하는 세상 편한 생활"
+    ,button: "info"
     
   },
 
@@ -58,8 +55,6 @@ function IndexHeader() {
     if (window.innerWidth > 991) {
       const updateScroll = () => {
         let windowScrollTop = window.pageYOffset / 3;
-        pageHeader.current.style.transform =
-          "translate3d(0," + windowScrollTop + "px,0)";
       };
       window.addEventListener("scroll", updateScroll);
       return function cleanup() {
@@ -114,14 +109,14 @@ function IndexHeader() {
                       key={item.src}
                     >
                       <img src={item.src} alt={item.altText} />
-                      <div className="carousel-caption ">
+                      <div className="carousel-caption IndexHeaderText">
                         <h2>{item.caption}</h2>
                         <h4>{item.text}</h4>
                         <h3>{item.text2}</h3>
                         <div className="btn-box">
-                        <Button className="btn-round" color={item.button} type="button" style={item.style}>
-                         구매 혜택 보기
-                        </Button>
+                          <Button className="btn-round" color={item.button} type="button">
+                          구매 혜택 보기
+                          </Button>
                         </div>
                       </div>
                     </CarouselItem>
