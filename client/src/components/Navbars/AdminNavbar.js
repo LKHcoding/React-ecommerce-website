@@ -62,12 +62,12 @@ function IndexNavbar(props) {
       ) : null}
       <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
         <Container>
-          <div className="navbar-translate">
-            <NavbarBrand href="/" target="" id="navbar-brand">
-              Admin-Page
+          <div className="navbar-translate brand-name">
+            <NavbarBrand href="/admin" target="" id="navbar-brand">
+              <i className="spin now-ui-icons loader_gear mr-1"></i> Admin-Page
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
-              관리자 페이지 입니다.
+              관리자 페이지
             </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
@@ -171,7 +171,11 @@ function IndexNavbar(props) {
                     회원 관리
                   </DropdownItem>
 
-                  <DropdownItem href="" target="" className="AdminNavbar">
+                  <DropdownItem
+                    href="/admin/adminusermanagement"
+                    target=""
+                    className="AdminNavbar"
+                  >
                     <i className="now-ui-icons loader_gear mr-1"></i>
                     관리자 계정 관리
                   </DropdownItem>
@@ -241,6 +245,21 @@ function IndexNavbar(props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <NavItem>
+                <Button
+                  className="nav-link btn-neutral"
+                  color="info"
+                  href="/"
+                  id="upgrade-to-pro"
+                  // onClick={(e) => e.preventDefault()}
+                >
+                  <i className="now-ui-icons arrows-1_minimal-left mr-1"></i>
+                  <p>돌아가기</p>
+                </Button>
+                <UncontrolledTooltip target="#upgrade-to-pro">
+                  Normal-Page로 돌아가기
+                </UncontrolledTooltip>
+              </NavItem>
               {/* <NavItem>
                 <Button
                   className="nav-link btn-neutral"

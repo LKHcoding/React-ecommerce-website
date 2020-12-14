@@ -18,9 +18,9 @@ import {
 } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { withRouter } from "react-router-dom";
 import { auth } from "../../_actions/user_action";
 import { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 function IndexNavbar(props) {

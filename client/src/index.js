@@ -39,6 +39,7 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import SignUpPage from "../src/views/index-sections/SignUp";
 import AdminIndex from "views/admin/AdminIndex";
 import UserManagement from "views/admin/UserManagement";
+import AdminUserManagement from "views/admin/AdminUserManagement";
 import Auth from "./hoc/auth";
 
 const createStoreWithMiddleware = applyMiddleware(
@@ -62,6 +63,11 @@ ReactDOM.render(
             exact
             path="/admin/usermanagement"
             component={Auth(UserManagement, null, true)}
+          />
+          <Route
+            exact
+            path="/admin/adminusermanagement"
+            component={Auth(AdminUserManagement, null, true)}
           />
 
           {/* 어드민관련 페이지 끝 */}

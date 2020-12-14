@@ -47,7 +47,7 @@ function Index() {
       <div className="wrapper">
         {/* <IndexHeader /> */}
         <div className="main">
-          <Tables />
+          <Tables adminUserList={true} />
           {/* <Images />
           <BasicElements />
           <Navbars />
