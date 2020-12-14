@@ -26,8 +26,7 @@ import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 
-function Index(props) {
-  console.log(props.userInfo);
+function Index() {
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -39,6 +38,7 @@ function Index(props) {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
   return (
     <>
       <IndexNavbar />

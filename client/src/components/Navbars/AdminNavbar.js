@@ -163,7 +163,7 @@ function IndexNavbar(props) {
                     All components
                   </DropdownItem> */}
                   <DropdownItem
-                    href="/login-page"
+                    href="/admin/usermanagement"
                     target=""
                     className="AdminNavbar"
                   >

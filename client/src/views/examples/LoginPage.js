@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 // reactstrap components
 import {
@@ -141,10 +141,11 @@ function LoginPage(props) {
                       block
                       className="btn-round"
                       color="info"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      type="submit"
+                      // href="#pablo"
+                      // onClick={(e) => e.preventDefault()}
                       size="lg"
-                      onFocus={onSubmitHandler}
+                      onClick={onSubmitHandler}
                     >
                       로그인
                     </Button>
