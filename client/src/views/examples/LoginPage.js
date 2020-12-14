@@ -50,7 +50,7 @@ function LoginPage(props) {
       if (response.payload.loginSuccess) {
         props.history.push("/");
       } else {
-        alert("Error");
+        alert("Login Error");
       }
     });
   };
@@ -134,10 +134,11 @@ function LoginPage(props) {
                       block
                       className="btn-round"
                       color="info"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      type="submit"
+                      // href="#pablo"
+                      // onClick={(e) => e.preventDefault()}
                       size="lg"
-                      onFocus={onSubmitHandler}
+                      onClick={onSubmitHandler}
                     >
                       로그인
                     </Button>

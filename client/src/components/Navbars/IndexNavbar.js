@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { auth } from "../../_actions/user_action";
-
+import { useEffect } from "react";
 import axios from "axios";
 
 function IndexNavbar(props) {
@@ -29,13 +29,21 @@ function IndexNavbar(props) {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    //최초 렌더링시에 한번만 실행되는곳
     dispatch(auth()).then((response) => {
-      console.log(response.payload.isAdmin);
-      if (response.payload.isAdmin === true) {
+      if (response.payload.isAuth === true) {
         setIsAdmin(true);
+        console.log("관리자 유저입니다." + response.payload.isAdmin);
+      }
+      if (response.payload.isAdmin === false) {
+        console.log("일반 유저입니다.");
       }
     });
+  }, []);
+
+  React.useEffect(() => {
+    //렌더링 될때마다 실행 되는 곳.(네비바 색깔)
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 399 ||
@@ -54,9 +62,12 @@ function IndexNavbar(props) {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
   const logoutuser = () => {
     axios.get("/api/users/logout").then((response) => {
       if (response.data.success) {
+        console.log("로그아웃 성공");
+        alert("로그아웃 되었습니다.");
         props.history.push("/login");
       } else {
         alert("로그아웃 실패");
@@ -81,7 +92,7 @@ function IndexNavbar(props) {
               React E-commerce website
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
-              Designed by LKHcoding. Coded by LKH Team
+              Using React.js, Node.js, Express, MongoDB
             </UncontrolledTooltip>
             <button
               className="navbar-toggler navbar-toggler"
