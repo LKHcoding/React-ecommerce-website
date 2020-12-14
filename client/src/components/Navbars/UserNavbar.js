@@ -17,40 +17,31 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { useState } from "react";
+import "../../assets/CustomCss/AdminNavbar.css";
 import { auth } from "../../_actions/user_action";
-
 import axios from "axios";
 
 function IndexNavbar(props) {
   const dispatch = useDispatch();
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+  const [navbarColor, setNavbarColor] = React.useState("");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-
   React.useEffect(() => {
     dispatch(auth()).then((response) => {
       console.log(response.payload.isAdmin);
-      if (response.payload.isAdmin === true) {
-        setIsAdmin(true);
-      }
       if (response.payload.isAuth === true) {
         setIsAuth(true);
       }
     });
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 399 ||
-        document.body.scrollTop > 399
-      ) {
-        setNavbarColor("");
-      } else if (
         document.documentElement.scrollTop < 400 ||
         document.body.scrollTop < 400
       ) {
-        setNavbarColor("navbar-transparent");
+        setNavbarColor("");
+        // setNavbarColor("navbar-transparent");
       }
     };
     window.addEventListener("scroll", updateNavbarColor);
@@ -137,7 +128,6 @@ function IndexNavbar(props) {
                     <i className="now-ui-icons business_chart-pie-36 mr-1"></i>
                     All components
                   </DropdownItem> */}
-
                   {isAuth === true ? (
                     <>
                       <DropdownItem href="" target="" onClick={logoutuser}>
@@ -164,8 +154,7 @@ function IndexNavbar(props) {
                   )}
                 </DropdownMenu>
               </UncontrolledDropdown>
-
-              {/* 관리자 권한에 의해 버튼을 보여줄것인지 여부 */}
+              {/* 관리자 권한에 의해 버튼을 보여줄것인지 여부
               {isAdmin === true ? (
                 <NavItem>
                   <Button
@@ -182,8 +171,7 @@ function IndexNavbar(props) {
                     관리자 페이지
                   </UncontrolledTooltip>
                 </NavItem>
-              ) : null}
-
+              ) : null} */}
               <NavItem>
                 <NavLink
                   href="https://twitter.com/CreativeTim?ref=creativetim"

@@ -38,6 +38,7 @@ import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import SignUpPage from "../src/views/index-sections/SignUp";
 import AdminIndex from "views/admin/AdminIndex";
+import Mypage from "views/mypage/Mypage";
 import Auth from "./hoc/auth";
 
 const createStoreWithMiddleware = applyMiddleware(
@@ -57,6 +58,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/index" component={Auth(Index, null)} />
           <Route exact path="/admin" component={Auth(AdminIndex, null, true)} />
+          <Route path="/mypage" component={Auth(Mypage, null)} />
 
           <Route
             path="/nucleo-icons"
