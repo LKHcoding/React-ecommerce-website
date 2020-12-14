@@ -1,16 +1,20 @@
 import React from "react";
 import IndexNavbar from "components/Navbars/UserNavbar.js";
-import { Navigation } from "../../../node_modules/react-scripts/node_modules/react-minimal-side-navigation";
-import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import UserInfo from "./etc/UserInfo/UserInfo";
+import SideMenu from "../../components/SideMenu/SideMenu";
+import Order from "./etc/Order/Order";
 function Mypage() {
   return (
-    <div>
-      <>
-        <Navigation></Navigation>
-        <IndexNavbar />
-      </>
-    </div>
+    <>
+      <IndexNavbar />
+      <SideMenu />
+      <Switch>
+        <Route exact path="/mypage" component={UserInfo} />
+        <Route exact path="/mypage/address" component={Order} />
+      </Switch>
+    </>
   );
 }
 
