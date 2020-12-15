@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 // reactstrap components
 import {
@@ -46,15 +46,22 @@ function LoginPage(props) {
       email: email,
       password: password,
     };
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.history.push("/");
-      } else {
-        alert("Login Error");
+    let pattern = /[~!#$%^&*()_+|<>?:{}]/;
+    let pattern2 = /[~!@#$%^&*()_+|<>?:{}]/;
+    if (pattern.test(email)) {
+      if (pattern2.test(password)) {
+        props.history.push("/login-page");
       }
-    });
+    } else {
+      dispatch(loginUser(body)).then((response) => {
+        if (response.payload.loginSuccess) {
+          props.history.push("/");
+        } else {
+          alert("이메일 혹은 비밀번호를 확인해주세요.");
+        }
+      });
+    }
   };
-
   React.useEffect(() => {
     document.body.classList.add("login-page");
     document.body.classList.add("sidebar-collapse");

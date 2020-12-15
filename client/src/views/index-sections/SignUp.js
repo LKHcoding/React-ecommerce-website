@@ -18,11 +18,17 @@ import {
   Row,
   Modal,
   ModalBody,
+  FormGroup,
 } from "reactstrap";
 import { registerUser } from "../../_actions/user_action";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-
+import {
+  isEmail,
+  isName,
+  isPassword,
+  isAddress,
+} from "../../Validation/Validation";
 // core components
 
 function SignUp(props) {
@@ -35,14 +41,21 @@ function SignUp(props) {
   const [extraAddressFocus, setExtraAddressFocus] = React.useState(false);
 
   const [name, setName] = React.useState("");
+  const [nameErrorText, setNameErrorText] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [emailErrorText, setEmailErrorText] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwordErrorText, setPasswordErrorText] = React.useState("");
   const [confirmpassword, setConfirmPassword] = React.useState("");
   const [addressdata, setAddressData] = React.useState("");
   const [address, setaddress] = React.useState("");
+  const [addressErrorText, setAddressErrorText] = React.useState("");
   const [extraAddress, setExtraAddress] = React.useState("");
   const [zonecode, setZoneCode] = React.useState("");
 
+  React.useEffect(() => {
+    setAddressErrorText("");
+  }, [address]);
   const dispatch = useDispatch();
 
   const fullAddressFn = (addressdata, zonecode) => {
@@ -51,7 +64,61 @@ function SignUp(props) {
     setZoneCode(zonecode);
     setModal1(false);
   };
+
+  const EmailCheck = () => {
+    let emailError = "";
+
+    if (!isEmail(email)) {
+      emailError = "email을 확인해주세요";
+    }
+    if (emailError) {
+      setEmailErrorText(emailError);
+      return false;
+    }
+    return true;
+  };
+
+  const nameCheck = () => {
+    let nameError = "";
+
+    if (!isName(name)) {
+      nameError = "이름을 입력해주세요";
+    }
+    if (nameError) {
+      setNameErrorText(nameError);
+      return false;
+    }
+    return true;
+  };
+  const passwordCheck = () => {
+    let passwordError = "";
+
+    if (!isName(name)) {
+      passwordError = "비밀번호를 입력해주세요";
+    }
+    if (passwordError) {
+      setPasswordErrorText(passwordError);
+      return false;
+    }
+    return true;
+  };
+  const addressCheck = () => {
+    let addressError = "";
+
+    if (!isName(address)) {
+      addressError = "주소를 입력해주세요";
+    }
+    if (addressError) {
+      setAddressErrorText(addressError);
+      return false;
+    }
+    return true;
+  };
   const Signup = (e) => {
+    const nameValid = nameCheck();
+    const emailValid = EmailCheck();
+    const passwordValid = passwordCheck();
+    const addressValid = addressCheck();
     if (password !== confirmpassword) {
       return alert("비밀번호를 다시 확인해주세요.");
     }
@@ -65,18 +132,54 @@ function SignUp(props) {
       extraaddress: extraAddress,
       zonecode: zonecode,
     };
-    dispatch(registerUser(body)).then((response) => {
-      if (response.payload.success) {
-        props.history.push("/index");
-      } else {
-        alert("양식을 모두 작성해주세요.");
+    let pattern = /[~!#$%^&*()_+|<>?:{}]/;
+    let pattern2 = /[~!@#$%^&*()_+|<>?:{}]/;
+    if (nameValid) {
+      if (emailValid) {
+        if (passwordValid) {
+          if (addressValid) {
+            if (pattern.test(email)) {
+              props.history.push("/signup-page");
+            } else {
+              if (pattern2.test(password)) {
+                props.history.push("/signup-page");
+              } else {
+                if (pattern2.test(confirmpassword)) {
+                  props.history.push("/signup-page");
+                } else {
+                  if (pattern2.test(extraAddress)) {
+                    props.history.push("/signup-page");
+                  } else {
+                    dispatch(registerUser(body)).then((response) => {
+                      if (response.payload.success) {
+                        props.history.push("/index");
+                      }
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    });
+    }
   };
 
   const handleSubmit = (event) => {
     // event.preventDefault();
     // 추가 코드를 작성하여 DB를 제어하거나 state를 변경할 수 있습니다!
+  };
+  const changeEmail = (e) => {
+    setEmail(e.currentTarget.value);
+    setEmailErrorText("");
+  };
+  const changeName = (e) => {
+    setName(e.currentTarget.value);
+    setNameErrorText("");
+  };
+  const changePassword = (e) => {
+    setPassword(e.currentTarget.value);
+    setPasswordErrorText("");
   };
   return (
     <>
@@ -146,9 +249,12 @@ function SignUp(props) {
                       type="text"
                       onFocus={() => setNameFocus(true)}
                       onBlur={() => setNameFocus(false)}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={changeName}
                     ></Input>
                   </InputGroup>
+                  <div style={{ color: "red", fontSize: "12px" }}>
+                    {nameErrorText}
+                  </div>
                   <InputGroup
                     className={
                       "no-border" + (emailFocus ? " input-group-focus" : "")
@@ -161,13 +267,18 @@ function SignUp(props) {
                     </InputGroupAddon>
                     <Input
                       placeholder="Email..."
+                      required
                       type="email"
                       name="email"
                       onFocus={() => setEmailFocus(true)}
                       onBlur={() => setEmailFocus(false)}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={changeEmail}
+                      autocomplete="off"
                     ></Input>
                   </InputGroup>
+                  <div style={{ color: "red", fontSize: "12px" }}>
+                    {emailErrorText}
+                  </div>
                   <InputGroup
                     className={
                       "no-border" + (passwordFocus ? " input-group-focus" : "")
@@ -183,9 +294,12 @@ function SignUp(props) {
                       type="password"
                       onFocus={() => setPasswordFocus(true)}
                       onBlur={() => setPasswordFocus(false)}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={changePassword}
                     ></Input>
                   </InputGroup>
+                  <div style={{ color: "red", fontSize: "12px" }}>
+                    {passwordErrorText}
+                  </div>
                   <InputGroup
                     className={
                       "no-border" +
@@ -223,8 +337,10 @@ function SignUp(props) {
                       onBlur={() => setAddressDataFocus(false)}
                       value={addressdata}
                     ></Input>
-                  </InputGroup>
-
+                  </InputGroup>{" "}
+                  <div style={{ color: "red", fontSize: "12px" }}>
+                    {addressErrorText}
+                  </div>
                   <InputGroup
                     className={
                       "no-border" +
@@ -244,7 +360,6 @@ function SignUp(props) {
                       onChange={(e) => setExtraAddress(e.target.value)}
                     ></Input>
                   </InputGroup>
-
                   <Button
                     color="info"
                     className="mr-1"
@@ -287,7 +402,6 @@ function SignUp(props) {
             <Button
               className="btn-round btn-white"
               color="default"
-              to="/login-page"
               outline
               size="lg"
               tag={Link}
