@@ -3,6 +3,8 @@
   REGISTER_USER,
   AUTH_USER,
   ALL_USER_INFO,
+  USER_INFO,
+  FIND_USER,
 } from "../_actions/types";
 
 export default function (state = {}, action) {
@@ -15,6 +17,10 @@ export default function (state = {}, action) {
       return { ...state, userData: action.payload };
     case ALL_USER_INFO:
       return { ...state, all_user_info: action.payload };
+    case USER_INFO:
+      return { ...state, user_info: action.payload };
+    case FIND_USER:
+      return { ...state, find_user: action.payload };
     default:
       return state;
   }

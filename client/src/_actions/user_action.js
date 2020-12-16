@@ -1,5 +1,12 @@
 ﻿import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, ALL_USER_INFO } from "./types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  ALL_USER_INFO,
+  USER_INFO,
+  FIND_USER,
+} from "./types";
 
 export function loginUser(dataTosubmit) {
   const request = axios
@@ -40,4 +47,20 @@ export function allUserInfo() {
     .then((response) => response.data);
 
   return { type: ALL_USER_INFO, payload: request };
+}
+
+export function findUserInfo() {
+  const request = axios
+    .post("/api/users/findUserInfo")
+    .then((response) => response.data);
+
+  return { type: USER_INFO, payload: request };
+}
+
+export function findUser(email) {
+  const request = axios
+    .post("/api/users/findUser", email)
+    .then((response) => response.data);
+
+  return { type: FIND_USER, payload: request };
 }

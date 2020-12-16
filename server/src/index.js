@@ -104,6 +104,24 @@ app.get("/api/users/logout", auth, (req, res) => {
   });
 });
 
+app.post("/api/users/findUserInfo", auth, (req, res) => {
+  User.findOne({ email: req.user.email }, (err, user) => {
+    if (!user) {
+      return res.json({ 유저정보불러오기: false, message: "유저가 없습니다" });
+    }
+    return res.status(200).json({ userinfo: user });
+  });
+});
+
+app.post("/api/users/findUser", (req, res) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (!user) {
+      return res.json({ success: false });
+    }
+    return res.status(200).json({ userinfo2: user });
+  });
+});
+
 app.listen(`${process.env.PORT}`, () => {
   console.log(`서버포트 : ${process.env.PORT}`);
 });
