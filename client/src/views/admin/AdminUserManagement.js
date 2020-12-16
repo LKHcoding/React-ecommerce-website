@@ -9,6 +9,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import Tables from "views/admin/admin-UserManagement-section/Tables";
+import { Container } from "reactstrap";
 
 // sections for this page
 import BasicElements from "../index-sections/BasicElements.js";
@@ -47,8 +48,9 @@ function Index() {
       <div className="wrapper">
         {/* <IndexHeader /> */}
         <div className="main">
-          <Tables adminUserList={true} />
-          {/* <Images />
+          <Container>
+            <Tables adminUserList={true} />
+            {/* <Images />
           <BasicElements />
           <Navbars />
           <Tabs />
@@ -61,6 +63,7 @@ function Index() {
           <CompleteExamples />
           <SignUp />
           <Examples /> */}
+          </Container>
           <Download />
         </div>
         <DarkFooter />

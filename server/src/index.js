@@ -95,6 +95,80 @@ app.post("/api/users/allUserInfoList", (req, res) => {
   });
 });
 
+//관리자페이지 -> 관리자 계정 관리 -> 수정 기능
+app.post("/api/users/adminUserUpdate", (req, res) => {
+  // console.log(req.body);
+
+  User.findOneAndUpdate(
+    { _id: req.body.id },
+    {
+      role: req.body.role,
+      name: req.body.name,
+      email: req.body.email,
+      address: req.body.address,
+      extraaddress: req.body.extraaddress,
+      zonecode: req.body.zonecode,
+      token: req.body.token,
+    },
+    (err, user) => {
+      // console.log(user);
+      if (!user) {
+        return res.json({
+          수정성공유무: false,
+          message: "유저가 없습니다.",
+        });
+      }
+      return res.status(200).json({
+        수정성공유무: true,
+      });
+    }
+  );
+});
+
+app.delete("/api/users/adminUserDelete", (req, res) => {
+  console.log(req.body.id);
+  User.findOneAndDelete({ _id: req.body.id }, (err, user) => {
+    if (err) {
+      return res.json({
+        err: err,
+      });
+    }
+    if (!user) {
+      return res.json({
+        삭제성공유무: false,
+        message: "유저가 없습니다.",
+      });
+    }
+    return res.status(200).json({
+      삭제성공유무: true,
+    });
+  });
+  // User.findOneAndUpdate(
+  //   { _id: req.body.id },
+  //   {
+  //     role: req.body.role,
+  //     name: req.body.name,
+  //     email: req.body.email,
+  //     address: req.body.address,
+  //     extraaddress: req.body.extraaddress,
+  //     zonecode: req.body.zonecode,
+  //     token: req.body.token,
+  //   },
+  //   (err, user) => {
+  //     // console.log(user);
+  //     if (!user) {
+  //       return res.json({
+  //         수정성공유무: false,
+  //         message: "유저가 없습니다.",
+  //       });
+  //     }
+  //     return res.status(200).json({
+  //       수정성공유무: true,
+  //     });
+  //   }
+  // );
+});
+
 app.get("/api/users/logout", auth, (req, res) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });

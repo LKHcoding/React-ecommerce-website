@@ -33,7 +33,7 @@ function IndexNavbar(props) {
   useEffect(() => {
     //최초 렌더링시에 한번만 실행되는곳
     dispatch(auth()).then((response) => {
-      if (response.payload.isAuth === true) {
+      if (response.payload.isAdmin === true) {
         setIsAdmin(true);
         console.log("관리자 유저입니다." + response.payload.isAdmin);
       }
@@ -92,8 +92,21 @@ function IndexNavbar(props) {
       <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand href="/" target="" id="navbar-brand">
-              React E-commerce website
+            <NavbarBrand
+              href="/"
+              target=""
+              id="navbar-brand"
+              style={
+                navbarColor !== ""
+                  ? {
+                      fontWeight: "500",
+                      fontSize: "18px",
+                      textShadow: "1px 1px 5px black",
+                    }
+                  : { fontWeight: "500", fontSize: "18px" }
+              }
+            >
+              React - samsung
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
               Using React.js, Node.js, Express, MongoDB
@@ -121,6 +134,13 @@ function IndexNavbar(props) {
               <NavItem>
                 <NavLink
                   href="#pablo"
+                  style={
+                    navbarColor !== ""
+                      ? {
+                          textShadow: "1px 1px 5px black",
+                        }
+                      : null
+                  }
                   onClick={(e) => {
                     e.preventDefault();
                     document
@@ -134,6 +154,13 @@ function IndexNavbar(props) {
               </NavItem>
               <UncontrolledDropdown nav>
                 <DropdownToggle
+                  style={
+                    navbarColor !== ""
+                      ? {
+                          textShadow: "1px 1px 5px black",
+                        }
+                      : null
+                  }
                   caret
                   color="default"
                   href="#pablo"
@@ -201,7 +228,16 @@ function IndexNavbar(props) {
                   target="_blank"
                   id="twitter-tooltip"
                 >
-                  <i className="fab fa-twitter"></i>
+                  <i
+                    className="fab fa-twitter"
+                    style={
+                      navbarColor !== ""
+                        ? {
+                            textShadow: "1px 1px 5px black",
+                          }
+                        : null
+                    }
+                  ></i>
                   <p className="d-lg-none d-xl-none">Twitter</p>
                 </NavLink>
                 <UncontrolledTooltip target="#twitter-tooltip">
@@ -214,7 +250,16 @@ function IndexNavbar(props) {
                   target="_blank"
                   id="facebook-tooltip"
                 >
-                  <i className="fab fa-facebook-square"></i>
+                  <i
+                    className="fab fa-facebook-square"
+                    style={
+                      navbarColor !== ""
+                        ? {
+                            textShadow: "1px 1px 5px black",
+                          }
+                        : null
+                    }
+                  ></i>
                   <p className="d-lg-none d-xl-none">Facebook</p>
                 </NavLink>
                 <UncontrolledTooltip target="#facebook-tooltip">
@@ -227,7 +272,16 @@ function IndexNavbar(props) {
                   target="_blank"
                   id="instagram-tooltip"
                 >
-                  <i className="fab fa-instagram"></i>
+                  <i
+                    className="fab fa-instagram"
+                    style={
+                      navbarColor !== ""
+                        ? {
+                            textShadow: "1px 1px 5px black",
+                          }
+                        : null
+                    }
+                  ></i>
                   <p className="d-lg-none d-xl-none">Instagram</p>
                 </NavLink>
                 <UncontrolledTooltip target="#instagram-tooltip">

@@ -59,16 +59,16 @@ ReactDOM.render(
       <Switch>
         <Switch>
           {/* 어드민관련 페이지 시작 */}
-          <Route exact path="/admin" component={Auth(AdminIndex, null, true)} />
+          <Route exact path="/admin" component={Auth(AdminIndex, true, true)} />
           <Route
             exact
             path="/admin/usermanagement"
-            component={Auth(UserManagement, null, true)}
+            component={Auth(UserManagement, true, true)}
           />
           <Route
             exact
             path="/admin/adminusermanagement"
-            component={Auth(AdminUserManagement, null, true)}
+            component={Auth(AdminUserManagement, true, true)}
           />
 
           {/* 어드민관련 페이지 끝 */}
