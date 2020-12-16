@@ -1,5 +1,12 @@
 ﻿import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, ALL_USER_INFO } from "./types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  ALL_USER_INFO,
+  ADMIN_USER_UPDATE,
+  ADMIN_USER_DELETE,
+} from "./types";
 
 export function loginUser(dataTosubmit) {
   const request = axios
@@ -40,4 +47,22 @@ export function allUserInfo() {
     .then((response) => response.data);
 
   return { type: ALL_USER_INFO, payload: request };
+}
+
+//admin page 유저 정보 수정
+export function adminUserUpdate(userList) {
+  const request = axios
+    .post("/api/users/adminUserUpdate", userList)
+    .then((response) => response.data);
+
+  return { type: ADMIN_USER_UPDATE, payload: request };
+}
+
+//admin page 유저 삭제
+export function adminUserDelete(userId) {
+  const request = axios
+    .delete("/api/users/adminUserDelete", { data: userId })
+    .then((response) => response.data);
+
+  return { type: ADMIN_USER_DELETE, payload: request };
 }

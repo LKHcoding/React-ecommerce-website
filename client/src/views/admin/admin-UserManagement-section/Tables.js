@@ -4,9 +4,36 @@ import React from "react";
 import { Table, Button, Modal, ModalBody } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { allUserInfo } from "../../../_actions/user_action";
+import {
+  allUserInfo,
+  adminUserUpdate,
+  adminUserDelete,
+} from "../../../_actions/user_action";
 import { useEffect } from "react";
 import styled from "styled-components";
+
+//스타일 컴포넌트 시작 --------------------------------------
+const ModalDiv1 = styled.div`
+  display: flex;
+  margin: 5px;
+`;
+const ModalDiv2 = styled.div`
+  display: flex;
+  width: 140px;
+  margin-right: 3px;
+  justify-content: flex-end;
+`;
+const ModalInput1 = styled.input`
+  width: 100%;
+  display: flex;
+  line-height: 20px;
+`;
+
+const ModalLabel1 = styled.label`
+  width: 100%;
+  display: flex;
+`;
+//스타일 컴포넌트 끝 ----------------------------------------
 
 function AllUserList({
   id,
@@ -19,7 +46,7 @@ function AllUserList({
   token,
   adminUserList,
   setModal1,
-  setSelectedUserInfo,
+  // setSelectedUserInfo,
   CopyUserInfo,
 }) {
   if (adminUserList) {
@@ -37,16 +64,16 @@ function AllUserList({
             token: token,
           });
 
-          setSelectedUserInfo({
-            id: id,
-            role: role,
-            name: name,
-            email: email,
-            address: address,
-            extraaddress: extraaddress,
-            zonecode: zonecode,
-            token: token,
-          });
+          // setSelectedUserInfo({
+          //   id: id,
+          //   role: role,
+          //   name: name,
+          //   email: email,
+          //   address: address,
+          //   extraaddress: extraaddress,
+          //   zonecode: zonecode,
+          //   token: token,
+          // });
 
           setModal1(true);
         }}
@@ -75,16 +102,16 @@ function AllUserList({
             token: token,
           });
 
-          setSelectedUserInfo({
-            id: id,
-            role: role,
-            name: name,
-            email: email,
-            address: address,
-            extraaddress: extraaddress,
-            zonecode: zonecode,
-            token: token,
-          });
+          // setSelectedUserInfo({
+          //   id: id,
+          //   role: role,
+          //   name: name,
+          //   email: email,
+          //   address: address,
+          //   extraaddress: extraaddress,
+          //   zonecode: zonecode,
+          //   token: token,
+          // });
 
           setModal1(true);
         }}
@@ -107,7 +134,7 @@ function Tables({ adminUserList }) {
   const [modal1, setModal1] = useState(false);
 
   const [userInfoList, setuserInfoList] = useState([]);
-  const [selectedUserInfo, setSelectedUserInfo] = useState([]);
+  // const [selectedUserInfo, setSelectedUserInfo] = useState([]);
 
   //modal input 값들
   const [modalInputId, setModalInputId] = useState("");
@@ -131,23 +158,30 @@ function Tables({ adminUserList }) {
     setModalInputToken(data.token);
   };
 
-  //스타일 컴포넌트 시작 --------------------------------------
-  const ModalDiv1 = styled.div`
-    display: flex;
-    margin: 5px;
-  `;
-  const ModalDiv2 = styled.div`
-    display: flex;
-    width: 140px;
-    margin-right: 3px;
-    justify-content: flex-end;
-  `;
-  const ModalInput1 = styled.input`
-    width: 100%;
-    display: flex;
-    line-height: 20px;
-  `;
-  //스타일 컴포넌트 끝 ----------------------------------------
+  //유저 정보 수정 함수
+  const AdminUserUpdate = (selectedUserInfo2) => {
+    dispatch(adminUserUpdate(selectedUserInfo2)).then((response) => {
+      if (response.payload.수정성공유무) {
+        alert("수정 완료");
+        window.location.reload(true);
+      } else {
+        alert("수정 실패");
+      }
+    });
+  };
+  //유저 삭제 함수
+  const AdminUserDelete = (selectedUserId) => {
+    dispatch(adminUserDelete(selectedUserId)).then((response) => {
+      if (response.payload.삭제성공유무) {
+        alert("삭제 완료");
+        window.location.reload(true);
+      } else {
+        alert("삭제 실패");
+        console.log(response.payload.err);
+        console.log(response.payload.message);
+      }
+    });
+  };
 
   useEffect(() => {
     dispatch(allUserInfo()).then((response) => {
@@ -185,7 +219,7 @@ function Tables({ adminUserList }) {
               token={element.token}
               adminUserList={adminUserList}
               setModal1={setModal1}
-              setSelectedUserInfo={setSelectedUserInfo}
+              // setSelectedUserInfo={setSelectedUserInfo}
               CopyUserInfo={CopyUserInfo}
             />
           ))}
@@ -210,11 +244,7 @@ function Tables({ adminUserList }) {
           {/* 모달 바디 내용 시작 */}
           <ModalDiv1>
             <ModalDiv2>Id : </ModalDiv2>
-            <ModalInput1
-              type="text"
-              value={modalInputId}
-              onChange={(e) => setModalInputId(e.target.value)}
-            />
+            <ModalLabel1>{modalInputId}</ModalLabel1>
           </ModalDiv1>
           <ModalDiv1>
             <ModalDiv2>Role : </ModalDiv2>
@@ -273,10 +303,45 @@ function Tables({ adminUserList }) {
             />
           </ModalDiv1>
         </ModalBody>
+
         <div className="modal-footer">
-          <Button color="default" type="button">
-            수정하기
-          </Button>
+          <div>
+            <Button
+              color="default"
+              type="button"
+              onClick={() => {
+                var retVal = window.confirm("수정 하시겠습니까?");
+                if (retVal) {
+                  AdminUserUpdate({
+                    id: modalInputId,
+                    role: modalInputRole,
+                    name: modalInputName,
+                    email: modalInputEmail,
+                    address: modalInputAddress,
+                    extraaddress: modalInputExtraaddress,
+                    zonecode: modalInputZonecode,
+                    token: modalInputToken,
+                  });
+                }
+              }}
+            >
+              수정
+            </Button>
+            <Button
+              color="default"
+              type="button"
+              style={{ marginLeft: "5px" }}
+              onClick={() => {
+                var retVal = window.confirm("정말 삭제 하시겠습니까?");
+                if (retVal) {
+                  AdminUserDelete({ id: modalInputId });
+                }
+              }}
+            >
+              삭제
+            </Button>
+          </div>
+
           <Button color="danger" type="button" onClick={() => setModal1(false)}>
             취소
           </Button>
