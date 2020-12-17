@@ -196,6 +196,48 @@ app.post("/api/users/findUser", (req, res) => {
   });
 });
 
+// app.post("/api/users/updateaddress"),
+//   (req, res) => {
+//     User.findOneAndUpdate(
+//       { email: req.body.email },
+//       {
+//         address: req.body.address,
+//         extraaddress: req.body.extraaddress,
+//         zonecode: req.body.zonecode,
+//       },
+//       (err, user) => {
+//         if (!user) {
+//           return res.json({
+//             주소업데이트: false,
+//             message: "주소업데이트 실패",
+//           });
+//         } else {
+//           return res
+//             .status(200)
+//             .json({ 주소업데이트: true, message: "주소업데이트 성공" });
+//         }
+//       }
+//     );
+//   };
+
+app.post("/api/users/updateaddress", (req, res) => {
+  console.log(req.body);
+  User.findOneAndUpdate(
+    { email: req.body.email },
+    {
+      address: req.body.address,
+      extraaddress: req.body.extraaddress,
+      zonecode: req.body.zonecode,
+    },
+    (err, user) => {
+      if (err) return res.json({ 주소업데이트: false, err });
+      return res.status(200).send({
+        주소업데이트: true,
+      });
+    }
+  );
+});
+
 app.listen(`${process.env.PORT}`, () => {
   console.log(`서버포트 : ${process.env.PORT}`);
 });

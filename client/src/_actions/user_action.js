@@ -8,6 +8,7 @@ import {
   FIND_USER,
   ADMIN_USER_UPDATE,
   ADMIN_USER_DELETE,
+  UPDATE_ADDRESS,
 } from "./types";
 
 export function loginUser(dataTosubmit) {
@@ -65,6 +66,15 @@ export function findUser(email) {
     .then((response) => response.data);
 
   return { type: FIND_USER, payload: request };
+}
+
+export function updateaddress(body) {
+  console.log(body);
+  const request = axios
+    .post("/api/users/updateaddress", body)
+    .then((response) => response.data);
+
+  return { type: UPDATE_ADDRESS, payload: request };
 }
 //admin page 유저 정보 수정
 export function adminUserUpdate(userList) {
