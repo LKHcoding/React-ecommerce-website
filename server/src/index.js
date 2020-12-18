@@ -195,6 +195,66 @@ app.get("/api/users/logout", auth, (req, res) => {
   });
 });
 
+app.post("/api/users/findUserInfo", auth, (req, res) => {
+  User.findOne({ email: req.user.email }, (err, user) => {
+    if (!user) {
+      return res.json({ 유저정보불러오기: false, message: "유저가 없습니다" });
+    }
+    return res.status(200).json({ userinfo: user });
+  });
+});
+
+app.post("/api/users/findUser", (req, res) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (!user) {
+      return res.json({ success: false });
+    }
+    return res.status(200).json({ userinfo2: user });
+  });
+});
+
+// app.post("/api/users/updateaddress"),
+//   (req, res) => {
+//     User.findOneAndUpdate(
+//       { email: req.body.email },
+//       {
+//         address: req.body.address,
+//         extraaddress: req.body.extraaddress,
+//         zonecode: req.body.zonecode,
+//       },
+//       (err, user) => {
+//         if (!user) {
+//           return res.json({
+//             주소업데이트: false,
+//             message: "주소업데이트 실패",
+//           });
+//         } else {
+//           return res
+//             .status(200)
+//             .json({ 주소업데이트: true, message: "주소업데이트 성공" });
+//         }
+//       }
+//     );
+//   };
+
+app.post("/api/users/updateaddress", (req, res) => {
+  console.log(req.body);
+  User.findOneAndUpdate(
+    { email: req.body.email },
+    {
+      address: req.body.address,
+      extraaddress: req.body.extraaddress,
+      zonecode: req.body.zonecode,
+    },
+    (err, user) => {
+      if (err) return res.json({ 주소업데이트: false, err });
+      return res.status(200).send({
+        주소업데이트: true,
+      });
+    }
+  );
+});
+
 app.listen(`${process.env.PORT}`, () => {
   console.log(`서버포트 : ${process.env.PORT}`);
 });
