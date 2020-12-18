@@ -10,6 +10,7 @@ import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import Tables from "views/admin/admin-UserManagement-section/Tables";
 import { Container } from "reactstrap";
+import { useParams } from "react-router-dom";
 
 // sections for this page
 import BasicElements from "../index-sections/BasicElements.js";
@@ -30,7 +31,7 @@ import Examples from "../index-sections/Examples.js";
 //style for admin-pages
 import "../../assets/CustomCss/AdminCommonStyle.css";
 
-function Index() {
+function Index(props) {
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -49,7 +50,7 @@ function Index() {
         {/* <IndexHeader /> */}
         <div className="main">
           <Container>
-            <Tables adminUserList={true} />
+            <Tables adminUserList={true} params={props} />
             {/* <Images />
           <BasicElements />
           <Navbars />
@@ -61,10 +62,10 @@ function Index() {
           <Carousel />
           <NucleoIcons />
           <CompleteExamples />
-          <SignUp />
-          <Examples /> */}
+          <SignUp /> */}
           </Container>
-          <Download />
+          <Examples />
+          {/* <Download /> */}
         </div>
         <DarkFooter />
       </div>

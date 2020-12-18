@@ -6,6 +6,7 @@ import {
   ALL_USER_INFO,
   ADMIN_USER_UPDATE,
   ADMIN_USER_DELETE,
+  SEARCH_USER_INFO,
 } from "./types";
 
 export function loginUser(dataTosubmit) {
@@ -41,12 +42,22 @@ export function auth() {
   };
 }
 
+//전체 유저 목록 불러오기
 export function allUserInfo() {
   const request = axios
     .post("/api/users/allUserInfoList")
     .then((response) => response.data);
 
   return { type: ALL_USER_INFO, payload: request };
+}
+
+//검색 유저 목록 불러오기
+export function searchUserInfo(data) {
+  const request = axios
+    .post("/api/users/searchUserInfoList", data)
+    .then((response) => response.data);
+
+  return { type: SEARCH_USER_INFO, payload: request };
 }
 
 //admin page 유저 정보 수정

@@ -10,10 +10,11 @@ export default function (SpecificComponent, option, adminRoute = null) {
   //false -> 로그인한 유저는 출입 불가능한 페이지
 
   function AuthenticationCheck(props) {
+    // console.log(props);
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(auth()).then((response) => {
-        console.log(response);
+        // console.log(response);
 
         //로그인 하지 않은 상태
         if (!response.payload.isAuth) {
