@@ -30,7 +30,7 @@ import Examples from "../index-sections/Examples.js";
 //style for admin-pages
 import "../../assets/CustomCss/AdminCommonStyle.css";
 
-function Index() {
+function Index(props) {
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -49,7 +49,7 @@ function Index() {
         {/* <IndexHeader /> */}
         <div className="main">
           <Container>
-            <Tables />
+            <Tables adminUserList={false} params={props} />
             {/* <Images />
           <BasicElements />
           <Navbars />

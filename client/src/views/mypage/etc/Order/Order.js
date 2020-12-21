@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { findUserInfo, findUser } from "../../../../_actions/user_action";
-import { Modal, ModalBody } from "reactstrap";
+import {
+  findUserInfo,
+  findUser,
+  updateaddress,
+} from "../../../../_actions/user_action";
+import { Button, Modal, ModalBody } from "reactstrap";
 import DaumPostcode from "components/Postcode/PostCode";
 
 function Order() {
@@ -22,16 +26,12 @@ function Order() {
 
   useEffect(() => {
     dispatch(findUserInfo()).then((response) => {
-      console.log(response.payload.userinfo.email);
-      console.log(response.payload.userinfo);
       setuserInfoList(response.payload.userinfo);
       setUserEmail(response.payload.userinfo.email);
       let body = {
         email: response.payload.userinfo.email,
       };
       dispatch(findUser(body)).then((response) => {
-        console.log(response.payload.userinfo2);
-        console.log(response.payload.userinfo2.email);
         setUserInfo(response.payload.userinfo2);
         setUserAddress(response.payload.userinfo2.address);
         setuserAddressData(
@@ -54,7 +54,22 @@ function Order() {
     setuserAddressData(addressdata + " (" + zonecode + ")");
     setZoneCode(zonecode);
     setModal2(false);
+    setUserExtraAddress("");
   };
+
+  const changeaddress = (body) => {
+    console.log(body);
+    dispatch(updateaddress(body)).then((response) => {
+      if (response.payload.주소업데이트) {
+        alert("주소변경 완료");
+        window.location.reload(true);
+      } else {
+        alert("주소변경 실패");
+      }
+    });
+    setModal(false);
+  };
+
   return (
     <div>
       <h1 onClick={a}>배송지 관리</h1>
@@ -74,24 +89,35 @@ function Order() {
           <input type="text" value={userAddressData} />
           <input
             type="text"
-            value={extraAddress}
-            onChange={(e) => setExtraAddress(e.target.value)}
+            value={userExtraAddress}
+            onChange={(e) => setUserExtraAddress(e.target.value)}
           />
-          <button>수정</button>
-          <button
+          <Button
+            onClick={() => {
+              changeaddress({
+                email: UserEmail,
+                address: userAddressData,
+                extraaddress: userExtraAddress,
+                zonecode: zonecode,
+              });
+            }}
+          >
+            수정
+          </Button>
+          <Button
             onClick={() => {
               setModal(false);
             }}
           >
             닫기
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => {
               setModal2(true);
             }}
           >
             주소검색
-          </button>
+          </Button>
           <Modal isOpen={modal2} toggle={() => setModal2(false)}>
             <ModalBody>
               <DaumPostcode setfullAddressFn={fullAddressFn} />

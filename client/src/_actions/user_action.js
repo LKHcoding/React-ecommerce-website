@@ -8,6 +8,8 @@ import {
   FIND_USER,
   ADMIN_USER_UPDATE,
   ADMIN_USER_DELETE,
+  SEARCH_USER_INFO,
+  UPDATE_ADDRESS,
 } from "./types";
 
 export function loginUser(dataTosubmit) {
@@ -43,12 +45,22 @@ export function auth() {
   };
 }
 
+//전체 유저 목록 불러오기
 export function allUserInfo() {
   const request = axios
     .post("/api/users/allUserInfoList")
     .then((response) => response.data);
 
   return { type: ALL_USER_INFO, payload: request };
+}
+
+//검색 유저 목록 불러오기
+export function searchUserInfo(data) {
+  const request = axios
+    .post("/api/users/searchUserInfoList", data)
+    .then((response) => response.data);
+
+  return { type: SEARCH_USER_INFO, payload: request };
 }
 
 export function findUserInfo() {
@@ -65,6 +77,15 @@ export function findUser(email) {
     .then((response) => response.data);
 
   return { type: FIND_USER, payload: request };
+}
+
+export function updateaddress(body) {
+  console.log(body);
+  const request = axios
+    .post("/api/users/updateaddress", body)
+    .then((response) => response.data);
+
+  return { type: UPDATE_ADDRESS, payload: request };
 }
 //admin page 유저 정보 수정
 export function adminUserUpdate(userList) {

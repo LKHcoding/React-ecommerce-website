@@ -67,7 +67,17 @@ ReactDOM.render(
           />
           <Route
             exact
+            path="/admin/usermanagement:search"
+            component={Auth(UserManagement, true, true)}
+          />
+          <Route
+            exact
             path="/admin/adminusermanagement"
+            component={Auth(AdminUserManagement, true, true)}
+          />
+          <Route
+            exact
+            path="/admin/adminusermanagement:search"
             component={Auth(AdminUserManagement, true, true)}
           />
 

@@ -95,6 +95,47 @@ app.post("/api/users/allUserInfoList", (req, res) => {
   });
 });
 
+//검색 유저 목록 불러오기
+app.post("/api/users/searchUserInfoList", (req, res) => {
+  // console.log(decodeURIComponent(req.body.search));
+  // console.log(req.body.type);
+  //types 를통해 키값을 동적으로 할당한다.
+  var types = req.body.type;
+
+  //decodeURIComponent를 쓰는이유는 이메일에 @같이 특수기호가 들어가는경우 주소창에서 인코딩이 깨지므로
+  var value = decodeURIComponent(req.body.search);
+
+  //role의경우 value가 int형인데 숫자인 문자열로 들어가서 검색시 mongodb에서 err를 일으킴
+  if (types === "role") {
+    value = Number(value);
+  }
+
+  //role인경우와 아닌경우에 따라 문자열 검색과 정확한 권한 검색으로 나누어 저장함
+  var objj =
+    types === "role"
+      ? {
+          [types]: value,
+        }
+      : { [types]: { $regex: value } };
+
+  User.find(objj, (err, user) => {
+    if (err) {
+      //에러가 있는경우 에러를 띄워준다.
+      console.log(err);
+    }
+    if (!user) {
+      return res.json({
+        유저목록조회: false,
+        message: "검색된 유저가 없습니다.",
+        userinfo: [],
+      });
+    }
+    return res.status(200).json({
+      userinfo: user,
+    });
+  });
+});
+
 //관리자페이지 -> 관리자 계정 관리 -> 수정 기능
 app.post("/api/users/adminUserUpdate", (req, res) => {
   // console.log(req.body);
@@ -126,7 +167,7 @@ app.post("/api/users/adminUserUpdate", (req, res) => {
 });
 
 app.delete("/api/users/adminUserDelete", (req, res) => {
-  console.log(req.body.id);
+  // console.log(req.body.id);
   User.findOneAndDelete({ _id: req.body.id }, (err, user) => {
     if (err) {
       return res.json({
@@ -143,30 +184,6 @@ app.delete("/api/users/adminUserDelete", (req, res) => {
       삭제성공유무: true,
     });
   });
-  // User.findOneAndUpdate(
-  //   { _id: req.body.id },
-  //   {
-  //     role: req.body.role,
-  //     name: req.body.name,
-  //     email: req.body.email,
-  //     address: req.body.address,
-  //     extraaddress: req.body.extraaddress,
-  //     zonecode: req.body.zonecode,
-  //     token: req.body.token,
-  //   },
-  //   (err, user) => {
-  //     // console.log(user);
-  //     if (!user) {
-  //       return res.json({
-  //         수정성공유무: false,
-  //         message: "유저가 없습니다.",
-  //       });
-  //     }
-  //     return res.status(200).json({
-  //       수정성공유무: true,
-  //     });
-  //   }
-  // );
 });
 
 app.get("/api/users/logout", auth, (req, res) => {
@@ -194,6 +211,48 @@ app.post("/api/users/findUser", (req, res) => {
     }
     return res.status(200).json({ userinfo2: user });
   });
+});
+
+// app.post("/api/users/updateaddress"),
+//   (req, res) => {
+//     User.findOneAndUpdate(
+//       { email: req.body.email },
+//       {
+//         address: req.body.address,
+//         extraaddress: req.body.extraaddress,
+//         zonecode: req.body.zonecode,
+//       },
+//       (err, user) => {
+//         if (!user) {
+//           return res.json({
+//             주소업데이트: false,
+//             message: "주소업데이트 실패",
+//           });
+//         } else {
+//           return res
+//             .status(200)
+//             .json({ 주소업데이트: true, message: "주소업데이트 성공" });
+//         }
+//       }
+//     );
+//   };
+
+app.post("/api/users/updateaddress", (req, res) => {
+  console.log(req.body);
+  User.findOneAndUpdate(
+    { email: req.body.email },
+    {
+      address: req.body.address,
+      extraaddress: req.body.extraaddress,
+      zonecode: req.body.zonecode,
+    },
+    (err, user) => {
+      if (err) return res.json({ 주소업데이트: false, err });
+      return res.status(200).send({
+        주소업데이트: true,
+      });
+    }
+  );
 });
 
 app.listen(`${process.env.PORT}`, () => {

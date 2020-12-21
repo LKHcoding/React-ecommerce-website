@@ -7,6 +7,8 @@
   FIND_USER,
   ADMIN_USER_UPDATE,
   ADMIN_USER_DELETE,
+  SEARCH_USER_INFO,
+  UPDATE_ADDRESS,
 } from "../_actions/types";
 
 export default function (state = {}, action) {
@@ -27,6 +29,10 @@ export default function (state = {}, action) {
       return { ...state, admin_user_update: action.payload };
     case ADMIN_USER_DELETE:
       return { ...state, admin_user_delete: action.payload };
+    case SEARCH_USER_INFO:
+      return { ...state, search_user_info: action.payload };
+    case UPDATE_ADDRESS:
+      return { ...state, update_address: action.payload };
     default:
       return state;
   }

@@ -1,16 +1,32 @@
 import React from "react";
 
 // reactstrap components
-import { Table, Button, Modal, ModalBody } from "reactstrap";
+import {
+  Table,
+  Button,
+  Modal,
+  ModalBody,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Form,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import {
   allUserInfo,
   adminUserUpdate,
   adminUserDelete,
+  searchUserInfo,
 } from "../../../_actions/user_action";
 import { useEffect } from "react";
 import styled from "styled-components";
+import queryString from "query-string";
 
 //스타일 컴포넌트 시작 --------------------------------------
 const ModalDiv1 = styled.div`
@@ -32,6 +48,13 @@ const ModalInput1 = styled.input`
 const ModalLabel1 = styled.label`
   width: 100%;
   display: flex;
+`;
+
+const SearchBoxDiv = styled.div`
+  display: flex;
+  height: 50px;
+  width: 350px;
+  align-items: center;
 `;
 //스타일 컴포넌트 끝 ----------------------------------------
 
@@ -64,17 +87,6 @@ function AllUserList({
             token: token,
           });
 
-          // setSelectedUserInfo({
-          //   id: id,
-          //   role: role,
-          //   name: name,
-          //   email: email,
-          //   address: address,
-          //   extraaddress: extraaddress,
-          //   zonecode: zonecode,
-          //   token: token,
-          // });
-
           setModal1(true);
         }}
       >
@@ -101,18 +113,6 @@ function AllUserList({
             zonecode: zonecode,
             token: token,
           });
-
-          // setSelectedUserInfo({
-          //   id: id,
-          //   role: role,
-          //   name: name,
-          //   email: email,
-          //   address: address,
-          //   extraaddress: extraaddress,
-          //   zonecode: zonecode,
-          //   token: token,
-          // });
-
           setModal1(true);
         }}
       >
@@ -128,13 +128,20 @@ function AllUserList({
   }
 }
 
-function Tables({ adminUserList }) {
+function Tables({ adminUserList, params }) {
+  //url 경로에 붙어서 온 (EX: ?search=a&name=asdf) parameter 받아오는법
+  const qry = queryString.parse(params.location.search);
+
   const dispatch = useDispatch();
 
   const [modal1, setModal1] = useState(false);
 
   const [userInfoList, setuserInfoList] = useState([]);
-  // const [selectedUserInfo, setSelectedUserInfo] = useState([]);
+
+  //검색창 states
+  const [Searching, setSearching] = useState("");
+  const [firstFocus, setFirstFocus] = useState(false);
+  const [searchType, setSearchType] = useState("name");
 
   //modal input 값들
   const [modalInputId, setModalInputId] = useState("");
@@ -156,6 +163,11 @@ function Tables({ adminUserList }) {
     setModalInputExtraaddress(data.extraaddress);
     setModalInputZonecode(data.zonecode);
     setModalInputToken(data.token);
+  };
+
+  //검색 타입 선택 함수
+  const ChangeSearchType = (type) => {
+    setSearchType(type);
   };
 
   //유저 정보 수정 함수
@@ -184,11 +196,22 @@ function Tables({ adminUserList }) {
   };
 
   useEffect(() => {
-    dispatch(allUserInfo()).then((response) => {
-      console.log(response.payload.userinfo);
-      setuserInfoList(response.payload.userinfo);
-    });
     //최초 렌더링시에 한번만 실행되는곳
+    setSearching(qry.search);
+    ChangeSearchType(JSON.stringify(qry) === "{}" ? "name" : qry.type);
+
+    if (JSON.stringify(qry) === "{}") {
+      dispatch(allUserInfo()).then((response) => {
+        // console.log(response.payload.userinfo);
+        setuserInfoList(response.payload.userinfo);
+      });
+    } else {
+      dispatch(searchUserInfo(qry)).then((response) => {
+        console.log(response.payload);
+        setuserInfoList(response.payload.userinfo);
+      });
+      // console.log(userInfoList.length);
+    }
   }, []);
 
   return (
@@ -206,25 +229,88 @@ function Tables({ adminUserList }) {
           </tr>
         </thead>
         <tbody>
-          {userInfoList.map((element) => (
-            <AllUserList
-              key={element._id}
-              id={element._id}
-              role={element.role}
-              name={element.name}
-              email={element.email}
-              address={element.address}
-              extraaddress={element.extraaddress}
-              zonecode={element.zonecode}
-              token={element.token}
-              adminUserList={adminUserList}
-              setModal1={setModal1}
-              // setSelectedUserInfo={setSelectedUserInfo}
-              CopyUserInfo={CopyUserInfo}
-            />
-          ))}
+          {userInfoList.length !== 0
+            ? userInfoList.map((element) => (
+                <AllUserList
+                  key={element._id}
+                  id={element._id}
+                  role={element.role}
+                  name={element.name}
+                  email={element.email}
+                  address={element.address}
+                  extraaddress={element.extraaddress}
+                  zonecode={element.zonecode}
+                  token={element.token}
+                  adminUserList={adminUserList}
+                  setModal1={setModal1}
+                  // setSelectedUserInfo={setSelectedUserInfo}
+                  CopyUserInfo={CopyUserInfo}
+                />
+              ))
+            : null}
         </tbody>
       </Table>
+      {/* 검색 */}
+      <Form
+        action={
+          adminUserList ? "/admin/adminusermanagement" : "/admin/usermanagement"
+        }
+        method="GET"
+      >
+        <SearchBoxDiv>
+          <UncontrolledDropdown>
+            <DropdownToggle caret>{searchType}</DropdownToggle>
+            <DropdownMenu>
+              {/* <DropdownItem header>Header</DropdownItem> */}
+              {/* <DropdownItem disabled>Action</DropdownItem> */}
+              <DropdownItem onClick={() => ChangeSearchType("role")}>
+                role
+              </DropdownItem>
+              <DropdownItem onClick={() => ChangeSearchType("name")}>
+                name
+              </DropdownItem>
+              <DropdownItem onClick={() => ChangeSearchType("email")}>
+                email
+              </DropdownItem>
+              <DropdownItem onClick={() => ChangeSearchType("address")}>
+                address
+              </DropdownItem>
+              <DropdownItem onClick={() => ChangeSearchType("extraaddress")}>
+                extraaddress
+              </DropdownItem>
+              <DropdownItem onClick={() => ChangeSearchType("zonecode")}>
+                zonecode
+              </DropdownItem>
+              {/* <DropdownItem divider /> */}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+
+          <InputGroup
+            style={{ height: "40px", margin: "10px" }}
+            className={
+              "no-border input-lg" + (firstFocus ? " input-group-focus" : "")
+            }
+          >
+            <InputGroupAddon addonType="prepend" style={{ height: "40px" }}>
+              <InputGroupText>
+                <i className="now-ui-icons users_circle-08"></i>
+              </InputGroupText>
+            </InputGroupAddon>
+            <Input type="hidden" name="type" value={searchType}></Input>
+
+            <Input
+              style={{ height: "40px" }}
+              name="search"
+              placeholder="Search"
+              value={Searching || ""}
+              onChange={(e) => setSearching(e.target.value)}
+              type="text"
+              onFocus={() => setFirstFocus(true)}
+              onBlur={() => setFirstFocus(false)}
+            ></Input>
+          </InputGroup>
+        </SearchBoxDiv>
+      </Form>
 
       <Modal isOpen={modal1} toggle={() => setModal1(false)}>
         <div className="modal-header justify-content-center">
