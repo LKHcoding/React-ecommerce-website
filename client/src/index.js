@@ -60,11 +60,13 @@ ReactDOM.render(
         <Switch>
           {/* 어드민관련 페이지 시작 */}
           <Route exact path="/admin" component={Auth(AdminIndex, true, true)} />
+
           <Route
             exact
             path="/admin/usermanagement"
             component={Auth(UserManagement, true, true)}
           />
+
           <Route
             exact
             path="/admin/usermanagement:search"
