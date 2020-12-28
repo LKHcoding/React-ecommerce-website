@@ -29,7 +29,10 @@ import {
   isPassword,
   isAddress,
 } from "../../Validation/Validation";
+
 // core components
+import moment from "moment";
+import "moment/locale/ko";
 
 function SignUp(props) {
   const [modal1, setModal1] = React.useState(false);
@@ -131,6 +134,7 @@ function SignUp(props) {
       address: address,
       extraaddress: extraAddress,
       zonecode: zonecode,
+      regdate: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
     let pattern = /[~!#$%^&*()_+|<>?:{}]/;
     let pattern2 = /[~!@#$%^&*()_+|<>?:{}]/;

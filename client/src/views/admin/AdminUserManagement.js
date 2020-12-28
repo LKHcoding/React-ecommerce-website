@@ -64,8 +64,8 @@ function Index(props) {
           <CompleteExamples />
           <SignUp /> */}
           </Container>
-          <Examples />
-          {/* <Download /> */}
+          {/* <Examples /> */}
+          <Download />
         </div>
         <DarkFooter />
       </div>

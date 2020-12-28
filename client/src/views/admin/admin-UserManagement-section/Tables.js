@@ -28,6 +28,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import queryString from "query-string";
 
+import Paginations from "views/admin/admin-UserManagement-section/Paginations";
+
 //스타일 컴포넌트 시작 --------------------------------------
 const ModalDiv1 = styled.div`
   display: flex;
@@ -55,6 +57,13 @@ const SearchBoxDiv = styled.div`
   height: 50px;
   width: 350px;
   align-items: center;
+  margin: 5px 0px;
+`;
+
+const DivForPagination = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 //스타일 컴포넌트 끝 ----------------------------------------
 
@@ -143,6 +152,10 @@ function Tables({ adminUserList, params }) {
   const [firstFocus, setFirstFocus] = useState(false);
   const [searchType, setSearchType] = useState("name");
 
+  //Pagination 용 states
+  const [MaximumUserInfoCount, setMaximumUserInfoCount] = useState(0);
+  const [currentPageNumber, setcurrentPageNumber] = useState(1);
+
   //modal input 값들
   const [modalInputId, setModalInputId] = useState("");
   const [modalInputRole, setModalInputRole] = useState("");
@@ -196,21 +209,39 @@ function Tables({ adminUserList, params }) {
   };
 
   useEffect(() => {
+    //currentPageNumber
+    if (qry.page !== undefined && qry.page !== null && qry.page !== "") {
+      setcurrentPageNumber(qry.page);
+    }
+
+    // console.log(qry);
     //최초 렌더링시에 한번만 실행되는곳
     setSearching(qry.search);
-    ChangeSearchType(JSON.stringify(qry) === "{}" ? "name" : qry.type);
+    // console.log(qry);
+    ChangeSearchType(
+      JSON.stringify(qry.type) === undefined ? "name" : qry.type
+    );
 
-    if (JSON.stringify(qry) === "{}") {
-      dispatch(allUserInfo()).then((response) => {
-        // console.log(response.payload.userinfo);
+    if (JSON.stringify(qry.search) === undefined) {
+      dispatch(
+        allUserInfo(qry.page === undefined ? null : qry, adminUserList)
+      ).then((response) => {
+        // console.log(response.payload);
+
+        //페이징용(total 유저수가 원래 몇인지 알기위해서[총 페이지 수를 구하기 위함])
+        setMaximumUserInfoCount(response.payload.AllCount);
+
         setuserInfoList(response.payload.userinfo);
       });
     } else {
-      dispatch(searchUserInfo(qry)).then((response) => {
-        console.log(response.payload);
+      dispatch(searchUserInfo(qry, adminUserList)).then((response) => {
+        // console.log(response.payload.userinfo);
+
+        //페이징용(total 유저수가 원래 몇인지 알기위해서[총 페이지 수를 구하기 위함])
+        setMaximumUserInfoCount(response.payload.AllCount);
+
         setuserInfoList(response.payload.userinfo);
       });
-      // console.log(userInfoList.length);
     }
   }, []);
 
@@ -250,6 +281,21 @@ function Tables({ adminUserList, params }) {
             : null}
         </tbody>
       </Table>
+
+      {/* 페이지네이션 시작-------------------------------------------------------------------- */}
+      <DivForPagination>
+        {MaximumUserInfoCount !== 0 ? (
+          <Paginations
+            currentPage={currentPageNumber}
+            maximumPage={MaximumUserInfoCount}
+            howManyOnePage={15}
+            qry={qry}
+            adminUserList={adminUserList}
+          />
+        ) : null}
+      </DivForPagination>
+      {/* 페이지네이션 끝-------------------------------------------------------------------- */}
+
       {/* 검색 */}
       <Form
         action={
