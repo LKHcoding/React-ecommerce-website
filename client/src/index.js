@@ -24,6 +24,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
 import promiseMiddleware from "redux-promise";
+import AboutUs from "views/index-sections/AboutUs";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -80,12 +81,9 @@ ReactDOM.render(
             path="/admin/adminusermanagement:search"
             component={Auth(AdminUserManagement, true, true)}
           />
-
           {/* 어드민관련 페이지 끝 */}
-
           <Route exact path="/index" component={Auth(Index, null)} />
           <Route path="/mypage" component={Auth(Mypage, null)} />
-
           <Route
             path="/nucleo-icons"
             render={(props) => <NucleoIcons {...props} />}
@@ -98,8 +96,8 @@ ReactDOM.render(
             path="/profile-page"
             render={(props) => <ProfilePage {...props} />}
           />
+          <Route exact path="/about-us" component={Auth(AboutUs, null)} />
           <Route path="/login-page" component={Auth(LoginPage, false)} />
-
           <Route path="/signup-page" component={Auth(SignUpPage, false)} />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
