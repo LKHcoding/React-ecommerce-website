@@ -24,7 +24,6 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
 import promiseMiddleware from "redux-promise";
-import AboutUs from "views/index-sections/AboutUs";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -44,6 +43,8 @@ import UserManagement from "views/admin/UserManagement";
 import AdminUserManagement from "views/admin/AdminUserManagement";
 import Auth from "./hoc/auth";
 import Product from "views/admin/admin-Order/Product";
+import AboutUs from "views/about/AboutUs";
+import AboutUsLocation from "views/about/AboutUsLocation";
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
@@ -107,6 +108,11 @@ ReactDOM.render(
             render={(props) => <ProfilePage {...props} />}
           />
           <Route exact path="/about-us" component={Auth(AboutUs, null)} />
+          <Route
+            exact
+            path="/about-us-location"
+            component={Auth(AboutUsLocation, null)}
+          />
           <Route path="/login-page" component={Auth(LoginPage, false)} />
           <Route path="/signup-page" component={Auth(SignUpPage, false)} />
           <Redirect to="/index" />

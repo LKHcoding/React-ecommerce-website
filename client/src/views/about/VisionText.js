@@ -4,6 +4,7 @@ import { useTrail, a } from "react-spring";
 import styled from "styled-components";
 
 const Texteffect = styled.div`
+  @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,700i&display=swap");
   /* @import url("https://rsms.me/inter/inter.css"); */
 
   html,
@@ -36,15 +37,22 @@ const Texteffect = styled.div`
     height: 110px;
     line-height: 110px;
     color: black;
-    font-size: 8em;
-    font-weight: 800;
-    letter-spacing: -9px;
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: -4px;
     will-change: transform, opacity;
     overflow: hidden;
   }
 
   .trails-text > div {
     overflow: hidden;
+  }
+
+  .maintext {
+    position: relative;
+    font-size: 6em;
+    letter-spacing: -7px;
+    font-weight: 750;
   }
 `;
 
@@ -57,32 +65,20 @@ function Trail({ open, children, ...props }) {
     height: open ? 110 : 0,
     from: { opacity: 0, x: 20, height: 0 },
   });
+  // console.log(items[0]);
   return (
     <Texteffect>
       <div className="trails-main" {...props}>
         <div>
+          <div className="maintext">Vision and Philosophy</div>
           {trail.map(({ x, height, ...rest }, index) => (
-            <a.div
-              key={items[index]}
-              className="trails-text"
-              style={{
-                ...rest,
-                transform: x.interpolate((x) => `translate3d(0,${x}px,0)`),
-              }}
-            >
+            <a.div key={index} className="trails-text">
               <a.div style={{ height }}>{items[index]}</a.div>
             </a.div>
           ))}
         </div>
       </div>
     </Texteffect>
-
-    //   <Trail open={open} onClick={() => set((state) => !state)}>
-    //   <span>Lorem</span>
-    //   <span>Ipsum</span>
-    //   <span>Dolor</span>
-    //   <span>Sit</span>
-    // </Trail>
   );
 }
 
