@@ -13,6 +13,14 @@ import arrow_left from "assets/img/arrow_left.png";
 
 const items = [
   {
+    src: require("assets/img/GalaxyZFold2.png"),
+    altText: "Galaxy Z Fold2 5G",
+    caption: "Galaxy Z Fold2 5G",
+    text2: "더 알아보기",
+    button: "primary",
+  },
+
+  {
     src: require("assets/img/Smart-home.png"),
     altText: "삼성 Smart Home",
     caption: "삼성 Smart Home",
@@ -27,14 +35,6 @@ const items = [
     text: "감각의 한계를 넘어서다",
     text2: "전체 QLED 8K보기",
     button: "info",
-  },
-
-  {
-    src: require("assets/img/GalaxyZFold2.png"),
-    altText: "Galaxy Z Fold2 5G",
-    caption: "Galaxy Z Fold2 5G",
-    text2: "더 알아보기",
-    button: "primary",
   },
 ];
 
