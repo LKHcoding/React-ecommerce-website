@@ -8,6 +8,8 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 const { auth } = require("./middleware/auth");
 const cors = require("cors");
+const { Product } = require("./models/Product");
+const multer = require("multer");
 
 env.config();
 
@@ -253,6 +255,48 @@ app.post("/api/users/updateaddress", (req, res) => {
       });
     }
   );
+});
+
+// 상품관리 페이지
+
+app.post("/api/products/allProducts", (req, res) => {
+  Product.find((err, product) => {
+    if (!product) {
+      return res.json({
+        상품목록조회: false,
+        message: "상품이없습니다.",
+        productinfo: [],
+      });
+    }
+    return res.status(200).json({
+      productinfo: product,
+    });
+  });
+});
+
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cv(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+var upload = multer({ storages: storage }).single("product_img");
+
+app.post("/api/products/addProduct", (req, res) => {
+  const product = new Product(req.body);
+  product.save((err, product) => {
+    if (!product) {
+      return res.json({ success: false, err });
+    }
+    return res.json({
+      success: true,
+      image: res.req.file.path,
+      fileName: res.req.file.filename,
+    });
+  });
 });
 
 app.listen(`${process.env.PORT}`, () => {

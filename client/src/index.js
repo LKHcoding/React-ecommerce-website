@@ -42,6 +42,7 @@ import Mypage from "views/mypage/Mypage";
 import UserManagement from "views/admin/UserManagement";
 import AdminUserManagement from "views/admin/AdminUserManagement";
 import Auth from "./hoc/auth";
+import Product from "views/admin/admin-Order/Product";
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
@@ -79,6 +80,11 @@ ReactDOM.render(
             exact
             path="/admin/adminusermanagement:search"
             component={Auth(AdminUserManagement, true, true)}
+          />
+          <Route
+            exact
+            path="/admin/product"
+            component={Auth(Product, true, true)}
           />
 
           {/* 어드민관련 페이지 끝 */}

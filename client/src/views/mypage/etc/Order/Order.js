@@ -41,6 +41,7 @@ function Order() {
             ")"
         );
         setUserExtraAddress(response.payload.userinfo2.extraaddress);
+        setZoneCode(response.payload.userinfo2.zonecode);
       });
     });
     //최초 렌더링시에 한번만 실행되는곳
@@ -96,7 +97,7 @@ function Order() {
             onClick={() => {
               changeaddress({
                 email: UserEmail,
-                address: userAddressData,
+                address: UserAddress,
                 extraaddress: userExtraAddress,
                 zonecode: zonecode,
               });
