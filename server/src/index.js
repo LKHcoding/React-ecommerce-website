@@ -32,7 +32,9 @@ mongoose
   });
 
 app.post("/api/users/signup", (req, res) => {
+  // console.log(req.body);
   const user = new User(req.body);
+  // console.log(user);
 
   user.save((err, userInfo) => {
     if (err) return res.json({ success: false, err });
@@ -83,29 +85,67 @@ app.get("/api/users/auth", auth, (req, res) => {
 
 //전체 유저 목록 불러오기
 app.post("/api/users/allUserInfoList", (req, res) => {
-  User.find((err, user) => {
-    // console.log(user);
-    if (!user) {
-      return res.json({
-        유저목록조회: false,
-        message: "유저가 없습니다.",
+  // console.log(req.body);
+  var updatePage = req.body.page;
+  var startpage = 0;
+  var limitpage = 15;
+
+  if (req.body.page !== null) {
+    startpage = limitpage * (updatePage.page * 1) - limitpage;
+  }
+  // console.log(startpage);
+
+  var obj1 = {};
+  if (req.body.adminUserList === true) {
+    obj1 = {
+      role: 0,
+    };
+  } else {
+    obj1 = {
+      role: { $ne: 0 },
+    };
+  }
+
+  User.find(obj1)
+    .sort({ regdate: 1 })
+    .skip(startpage)
+    .limit(limitpage)
+    .exec((err, user) => {
+      //에러 출력
+      if (err) {
+        console.log(err);
+        return res.json(err);
+      }
+
+      //유저가 없을경우
+      if (!user) {
+        return res.json({
+          유저목록조회: false,
+          message: "유저가 없습니다.",
+          userinfo: [],
+        });
+      }
+
+      //페이징 처리를 위해 전체유저수 구하기
+      User.countDocuments(obj1).exec((count_error, count) => {
+        if (count_error) {
+          return res.json(count_error);
+        }
+        return res.status(200).json({
+          userinfo: user,
+          AllCount: count,
+        });
       });
-    }
-    return res.status(200).json({
-      userinfo: user,
     });
-  });
 });
 
 //검색 유저 목록 불러오기
 app.post("/api/users/searchUserInfoList", (req, res) => {
-  // console.log(decodeURIComponent(req.body.search));
-  // console.log(req.body.type);
   //types 를통해 키값을 동적으로 할당한다.
-  var types = req.body.type;
+  var types = req.body.data.type;
 
   //decodeURIComponent를 쓰는이유는 이메일에 @같이 특수기호가 들어가는경우 주소창에서 인코딩이 깨지므로
-  var value = decodeURIComponent(req.body.search);
+  var value = decodeURIComponent(req.body.data.search);
 
   //role의경우 value가 int형인데 숫자인 문자열로 들어가서 검색시 mongodb에서 err를 일으킴
   if (types === "role") {
@@ -120,22 +160,57 @@ app.post("/api/users/searchUserInfoList", (req, res) => {
         }
       : { [types]: { $regex: value } };
 
-  User.find(objj, (err, user) => {
-    if (err) {
-      //에러가 있는경우 에러를 띄워준다.
-      console.log(err);
-    }
-    if (!user) {
-      return res.json({
-        유저목록조회: false,
-        message: "검색된 유저가 없습니다.",
-        userinfo: [],
-      });
-    }
-    return res.status(200).json({
-      userinfo: user,
+  //관리자 관리 페이지와 유저 관리 페이지별로 데이터를 다르게 검색한다.
+  var objj2 = {};
+  if (req.body.adminUserList === true) {
+    objj2.role = 0;
+  } else {
+    objj2.role = { $ne: 0 };
+  }
+
+  // console.log(objj2);
+  // console.log(req.body);
+
+  //페이징 처리를 위한 소스
+  var startpage = 0;
+
+  //1페이지당 보여줄 회원 수
+  var limitpage = 15;
+  // console.log(req.body.data);
+  if (req.body.data.page !== undefined && req.body.data.page !== "") {
+    startpage = limitpage * req.body.data.page - limitpage;
+  }
+
+  User.find({ $and: [objj, objj2] })
+    .sort({ regdate: 1 })
+    .skip(startpage)
+    .limit(limitpage)
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      if (!user) {
+        return res.json({
+          유저목록조회: false,
+          message: "유저가 없습니다.",
+          userinfo: [],
+        });
+      }
+
+      //페이징 처리를 위해 전체유저수 구하기
+      User.countDocuments({ $and: [objj, objj2] }).exec(
+        (count_error, count) => {
+          if (count_error) {
+            return res.json(count_error);
+          }
+          // console.log(user);
+          return res.status(200).json({
+            userinfo: user,
+            AllCount: count,
+          });
+        }
+      );
     });
-  });
 });
 
 //관리자페이지 -> 관리자 계정 관리 -> 수정 기능

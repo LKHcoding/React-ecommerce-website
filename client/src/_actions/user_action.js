@@ -46,18 +46,24 @@ export function auth() {
 }
 
 //전체 유저 목록 불러오기
-export function allUserInfo() {
+export function allUserInfo(page, adminUserList) {
   const request = axios
-    .post("/api/users/allUserInfoList")
+    .post("/api/users/allUserInfoList", {
+      page: page,
+      adminUserList: adminUserList,
+    })
     .then((response) => response.data);
 
   return { type: ALL_USER_INFO, payload: request };
 }
 
 //검색 유저 목록 불러오기
-export function searchUserInfo(data) {
+export function searchUserInfo(data, adminUserList) {
   const request = axios
-    .post("/api/users/searchUserInfoList", data)
+    .post("/api/users/searchUserInfoList", {
+      data: data,
+      adminUserList: adminUserList,
+    })
     .then((response) => response.data);
 
   return { type: SEARCH_USER_INFO, payload: request };

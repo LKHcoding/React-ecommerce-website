@@ -9,6 +9,8 @@ export default function (SpecificComponent, option, adminRoute = null) {
   //true -> 로그인한 유저만 출입 가능한 페이지
   //false -> 로그인한 유저는 출입 불가능한 페이지
 
+  //adminRoute -> 관리자 권한 여부에 따라서 페이지를 보여줄지 말지 관리하는 변수
+
   function AuthenticationCheck(props) {
     // console.log(props);
     const dispatch = useDispatch();

@@ -133,6 +133,22 @@ function IndexNavbar(props) {
             <Nav navbar>
               <NavItem>
                 <NavLink
+                  href="/about-us"
+                  style={
+                    navbarColor !== ""
+                      ? {
+                          textShadow: "1px 1px 5px black",
+                        }
+                      : null
+                  }
+                >
+                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
+                  <p>About-Us</p>
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink
                   href="#pablo"
                   style={
                     navbarColor !== ""

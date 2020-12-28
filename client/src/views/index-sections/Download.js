@@ -25,7 +25,7 @@ function Download() {
               </h5>
             </Col>
             <Col className="text-center" lg="8" md="12">
-              <Button
+              {/* <Button
                 className="btn-round mr-1"
                 color="info"
                 href="https://www.creative-tim.com/product/now-ui-kit-react?ref=nukr-index-page"
@@ -44,13 +44,13 @@ function Download() {
                 target="_blank"
               >
                 Download PSD/Sketch
-              </Button>
+              </Button> */}
             </Col>
           </Row>
-          <br></br>
-          <br></br>
-          <br></br>
-          <Row className="text-center mt-5">
+          {/* <br></br> */}
+          {/* <br></br> */}
+          {/* <br></br> */}
+          {/* <Row className="text-center mt-5">
             <Col className="ml-auto mr-auto" md="8">
               <h2>Want more?</h2>
               <h5 className="description">
@@ -78,9 +78,9 @@ function Download() {
                 Upgrade to PRO
               </Button>
             </Col>
-          </Row>
-          <br></br>
-          <br></br>
+          </Row> */}
+          {/* <br></br> */}
+          {/* <br></br> */}
           <Row className="justify-content-md-center sharing-area text-center">
             <Col className="text-center" lg="8" md="12">
               <h3>Thank you for supporting us!</h3>
