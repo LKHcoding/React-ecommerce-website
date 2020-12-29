@@ -101,7 +101,7 @@ function IndexNavbar(props) {
                   ? {
                       fontWeight: "500",
                       fontSize: "18px",
-                      textShadow: "1px 1px 5px black",
+                      textShadow: "1px 1px 3px black, 1px 1px 3px black",
                     }
                   : { fontWeight: "500", fontSize: "18px" }
               }
@@ -137,7 +137,7 @@ function IndexNavbar(props) {
                   style={
                     navbarColor !== ""
                       ? {
-                          textShadow: "1px 1px 5px black",
+                          textShadow: "1px 1px 1px black, 1px 1px 1px black",
                         }
                       : null
                   }
@@ -153,7 +153,7 @@ function IndexNavbar(props) {
                   style={
                     navbarColor !== ""
                       ? {
-                          textShadow: "1px 1px 5px black",
+                          textShadow: "1px 1px 1px black, 1px 1px 1px black",
                         }
                       : null
                   }
@@ -173,7 +173,7 @@ function IndexNavbar(props) {
                   style={
                     navbarColor !== ""
                       ? {
-                          textShadow: "1px 1px 5px black",
+                          textShadow: "1px 1px 1px black, 1px 1px 1px black",
                         }
                       : null
                   }
@@ -227,6 +227,14 @@ function IndexNavbar(props) {
                     color="info"
                     href="/admin"
                     id="upgrade-to-pro"
+                    style={
+                      navbarColor !== ""
+                        ? {
+                            textShadow:
+                              "1px 1px 1px skyblue, 1px 1px 1px skyblue",
+                          }
+                        : null
+                    }
                     // onClick={(e) => e.preventDefault()}
                   >
                     <i className="now-ui-icons arrows-1_share-66 mr-1"></i>
