@@ -1,138 +1,136 @@
-.TabList-main{
-     background-color: gray; 
-    left:300px;
-    padding:0px;
-    margin:0px;
-    width:100%;
-    height: 800px;
-    text-align: center;
-    font-family: 'SamsungOneKorean','dotum',sans-serif;
+.TabList-main {
+  background-color: gray;
+  left: 300px;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 800px;
+  text-align: center;
+  font-family: "SamsungOneKorean", "dotum", sans-serif;
 }
 
-.TabList-Text-line { /*첫번째 TabList의 카드 가로라인*/
-    background-color:white;
-    border-bottom: 1px solid white;
+.TabList-Text-line {
+  /*첫번째 TabList의 카드 가로라인*/
+  background-color: white;
+  border-bottom: 1px solid white;
 }
 
-.nav-tabs > .nav-item > .nav-link { /*첫번째 TabList의 텍스트 */
-    color: black;
-    font-weight: bold;
+.nav-tabs > .nav-item > .nav-link {
+  /*첫번째 TabList의 텍스트 */
+  color: black;
+  font-weight: bold;
 }
 
-.nav-tabs > .nav-item > .nav-link.active{ /*첫번째 TabList의 Action효과 */
-    background-color: #2ca8ff;
-    border-radius: 30px;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-family: SamsungOneKorean, 돋움, sans-serif;
+.nav-tabs > .nav-item > .nav-link.active {
+  /*첫번째 TabList의 Action효과 */
+  background-color: #2ca8ff;
+  border-radius: 30px;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: SamsungOneKorean, 돋움, sans-serif;
 }
-
 
 /*1. TabList 시작*/
 
-.set-tab-prd-inner{
-    position: relative;
-    flex-direction: row;
-    display:flex;
-    border: 1px solid black;
-    
-    width: 2000px;
-    height: 700px;
+.set-tab-prd-inner {
+  position: relative;
+  flex-direction: row;
+  display: flex;
+  border: 1px solid black;
+
+  width: 2000px;
+  height: 700px;
 }
 /*1. 전체 컨테이너 (hidden 사이즈 조절때문에)*/
- .TabListContainer{
-    background-color: white;
-    border: 1px solid red;
-    max-width: 1400px;
-    height: 0px;
-    padding:0px;
-    
-   
-} 
+.TabListContainer {
+  background-color: white;
+  border: 1px solid red;
+  max-width: 1400px;
+  height: 0px;
+  padding: 0px;
+}
 
 /*1-1. 왼쪽시작*/
 .set-tab-prd-inner > .prd-item-grp {
-    flex-direction: column;
-    width: 319px;
-    display: flex;
-    /* flex-flow: row wrap;
+  flex-direction: column;
+  width: 319px;
+  display: flex;
+  /* flex-flow: row wrap;
     width: 50%;
     height: inherit; */
 }
 
 .set-tab-prd-inner > .prd-item-grp > .prd-item {
-    width:319px;
-    height: 50%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    text-align: center;
+  width: 319px;
+  height: 50%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 /*1-1 왼쪽 a태그박스 */
-.set-tab-prd-inner > .prd-item-grp > .prd-item > .prd-item-inner{ 
-    display: flex;
-    border: 1px solid blue;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    display: block;
-    overflow: hidden;
-    position: relative;
-    height: 319px;
-    width: 319px;
-    margin: 5px;
-    left:15px;
+.set-tab-prd-inner > .prd-item-grp > .prd-item > .prd-item-inner {
+  display: flex;
+  border: 1px solid blue;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  height: 319px;
+  width: 319px;
+  margin: 5px;
+  left: 15px;
 }
-.prd-item-grp > .prd-item > .prd-item-inner > .fig-img{
-    position: relative;
-    top:35px;
-    /* border: 1px solid blue; */
-    flex-direction: column;
-    margin: 0px;
-    width:319px;
-    height: 319px;    
+.prd-item-grp > .prd-item > .prd-item-inner > .fig-img {
+  position: relative;
+  top: 35px;
+  /* border: 1px solid blue; */
+  flex-direction: column;
+  margin: 0px;
+  width: 319px;
+  height: 319px;
 }
 /*1-1. 왼쪽박스 텍스트 박스*/
-.prd-item-inner > .fig-img > .prd-name{
-    display: flex;
-    /* border:solid 1px green; */
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    padding: 20px;
-    width: 319px;
+.prd-item-inner > .fig-img > .prd-name {
+  display: flex;
+  /* border:solid 1px green; */
+  flex-direction: column;
+  font-size: 12px;
+  color: black;
+  padding: 20px;
+  width: 319px;
 }
-.prd-name > .tit-name{
-    font-size: 15px;
-    font-weight: bold;
-    color: #000;
-}
-
-
-
-/*1-2. 중간a태그 박스*/
-.prd-item-point > .prd-item-inner{ 
-    position: absolute;
-    border: 1px solid red;
-    display: flex;
-    top:20px;
-    left:365px;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    height: 665px;
-    width: 665px;
+.prd-name > .tit-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
 }
 
 /*1-2. 중간a태그 박스*/
-.prd-item-point2 > .prd-item-inner{ 
-    position: absolute;
-    border: 1px solid red;
-    display: flex;
-    top:20px;
-    left:365px;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    height: 665px;
-    width: 665px;
+.prd-item-point > .prd-item-inner {
+  position: absolute;
+  border: 1px solid red;
+  display: flex;
+  top: 20px;
+  left: 365px;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  height: 665px;
+  width: 665px;
+}
+
+/*1-2. 중간a태그 박스*/
+.prd-item-point2 > .prd-item-inner {
+  position: absolute;
+  border: 1px solid red;
+  display: flex;
+  top: 20px;
+  left: 365px;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  height: 665px;
+  width: 665px;
 }
 /* .prd-item-point > .prd-item-inner > .fig-img{
     position: relative;
@@ -141,94 +139,87 @@
 }  */
 
 /*1-2.중간박스 텍스트 박스*/
-.prd-item-point > .prd-item-inner > .fig-img > .prd-name{
-    display: flex;
-    border:solid 1px green; 
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    padding: 10px;
-    width: 665px;
+.prd-item-point > .prd-item-inner > .fig-img > .prd-name {
+  display: flex;
+  /* border:solid 1px green;  */
+  flex-direction: column;
+  font-size: 12px;
+  color: black;
+  padding: 10px;
+  width: 665px;
 }
 /*1-2. 중간박스 텍스트 큰글자*/
-.prd-item-point > .prd-item-inner > .fig-img > .prd-name > .tit-name{
-    font-size: 20px;
-    font-size: 1.23vw;
-    color: #000;
+.prd-item-point > .prd-item-inner > .fig-img > .prd-name > .tit-name {
+  font-size: 20px;
+  font-size: 1.23vw;
+  color: #000;
 }
-
-
-
-
 
 /*1-3. 오른쪽 a태그박스 */
-.set-tab-prd-inner > .prd-item-grp > .prd-item > .prd-item-inner2{ 
-    display: flex;
-    border: 1px solid blue;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    display: block;
-    overflow: hidden;
-    position: relative;
-    height: 319px;
-    width: 319px;
-    margin: 5px;
-    left:730px;
-    
+.set-tab-prd-inner > .prd-item-grp > .prd-item > .prd-item-inner2 {
+  display: flex;
+  border: 1px solid blue;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  height: 319px;
+  width: 319px;
+  margin: 5px;
+  left: 730px;
 }
-.prd-item-grp > .prd-item > .prd-item-inner2 > .fig-img{
-    position: relative;
-    top:35px;
-    /* border: 1px solid blue; */
-    flex-direction: column;
-    margin: 0px;
-    width:319px;
-    height: 319px;    
+.prd-item-grp > .prd-item > .prd-item-inner2 > .fig-img {
+  position: relative;
+  top: 35px;
+  /* border: 1px solid blue; */
+  flex-direction: column;
+  margin: 0px;
+  width: 319px;
+  height: 319px;
 }
-
 
 /*1-3. 오른쪽박스 텍스트 박스*/
-.prd-item-inner2 > .fig-img > .prd-name{
-    display: flex;
-     border:solid 1px green; 
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    padding: 20px;
-    width: 319px;
+.prd-item-inner2 > .fig-img > .prd-name {
+  display: flex;
+  /* border:solid 1px green;  */
+  flex-direction: column;
+  font-size: 12px;
+  color: black;
+  padding: 20px;
+  width: 319px;
 }
-.prd-name > .tit-name{
-    font-size: 15px;
-    font-weight: bold;
-    color: #000;
+.prd-name > .tit-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
 }
-
 
 /*2번째*/
 /*2-2. 중간a태그 박스*/
-.prd-item-point > .prd-item-inner{ 
-    position: absolute;
-    border: 1px solid red;
-    display: flex;
-    top:20px;
-    left:365px;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    height: 665px;
-    width: 665px;
+.prd-item-point > .prd-item-inner {
+  position: absolute;
+  border: 1px solid red;
+  display: flex;
+  top: 20px;
+  left: 365px;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  height: 665px;
+  width: 665px;
 }
 
 /*2-2. 중간a태그 박스*/
-.prd-item-point2 > .prd-item-inner{ 
-    position: absolute;
-    border: 1px solid red;
-    display: flex;
-    top:20px;
-    left:365px;
-    background: #f4f4f4;
-    border-radius: 1.3889vw;
-    height: 665px;
-    width: 665px;
+.prd-item-point2 > .prd-item-inner {
+  position: absolute;
+  border: 1px solid red;
+  display: flex;
+  top: 20px;
+  left: 365px;
+  background: #f4f4f4;
+  border-radius: 1.3889vw;
+  height: 665px;
+  width: 665px;
 }
 /* .prd-item-point > .prd-item-inner > .fig-img{
     position: relative;
@@ -237,40 +228,20 @@
 }  */
 
 /*2-2.중간박스 텍스트 박스*/
-.prd-item-point > .prd-item-inner > .fig-img > .prd-name{
-    display: flex;
-    border:solid 1px green; 
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    padding: 10px;
-    width: 665px;
+.prd-item-point > .prd-item-inner > .fig-img > .prd-name {
+  display: flex;
+  /* border:solid 1px green;  */
+  flex-direction: column;
+  font-size: 12px;
+  color: black;
+  padding: 10px;
+  width: 665px;
 }
 /*-2. 중간박스 텍스트 큰글자*/
-.prd-item-point > .prd-item-inner > .fig-img > .prd-name > .tit-name{
-    font-size: 20px;
-    font-size: 1.23vw;
-    color: #000;
+.prd-item-point > .prd-item-inner > .fig-img > .prd-name > .tit-name {
+  font-size: 20px;
+  font-size: 1.23vw;
+  color: #000;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*5번째 */
-
-
-
-

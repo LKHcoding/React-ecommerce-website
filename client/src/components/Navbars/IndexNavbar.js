@@ -227,14 +227,14 @@ function IndexNavbar(props) {
                     color="info"
                     href="/admin"
                     id="upgrade-to-pro"
-                    style={
-                      navbarColor !== ""
-                        ? {
-                            textShadow:
-                              "1px 1px 1px skyblue, 1px 1px 1px skyblue",
-                          }
-                        : null
-                    }
+                    // style={
+                    //   navbarColor !== ""
+                    //     ? {
+                    //         textShadow:
+                    //           "1px 1px 1px skyblue, 1px 1px 1px skyblue",
+                    //       }
+                    //     : null
+                    // }
                     // onClick={(e) => e.preventDefault()}
                   >
                     <i className="now-ui-icons arrows-1_share-66 mr-1"></i>

@@ -123,7 +123,7 @@ function IndexHeader() {
       <button
         className="carousel-control-prev"
         style={{
-          border: "solid 1px red",
+          // border: "solid 1px red",
           top: "350px",
           height: "100px",
           width: "100px",
@@ -143,7 +143,7 @@ function IndexHeader() {
       <button
         className="carousel-control-next"
         style={{
-          border: "solid 1px blue",
+          // border: "solid 1px blue",
           top: "350px",
           height: "100px",
           width: "100px",
