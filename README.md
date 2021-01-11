@@ -113,4 +113,4 @@
 
 In the project directory, you can run:
 
-### `yarn start` or `npm start`
+### before you start `yarn install` or `npm install` and then `yarn start` or `npm start`
